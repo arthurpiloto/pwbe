@@ -39,11 +39,17 @@ entradaDados.question('Digite o nome do aluno: ', function (nome) {
                 // Entrada da quarta nota do aluno
                 entradaDados.question('Digite a 4ª nota do aluno: ', function (nota4) {
                     let valor4 = nota4
+                    let media
 
+                    // Validação para nome do aluno
                     if (nomeAluno == '') {
                         console.log('O nome do aluno deve ser informado')
+                    // Validação para as notas
                     } else if (valor1 == '' || valor2 == '' || valor3 == '' || valor4 == '') {
-                        console.log('O valor deve ser preenchido')
+                        console.log('O valor de todas as notas deve ser preenchido')
+                    } else {
+                        media = (parseFloat(valor1) + parseFloat(valor2) + parseFloat(valor3) + parseFloat(valor4)) / 4
+                        console.log('O aluno ['+ nomeAluno +'], teve nédia igual a [' + media + ']')
                     }
                 })
             })
