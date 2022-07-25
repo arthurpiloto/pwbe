@@ -30,6 +30,8 @@ Essa variável terá existência somente na função que está sendo utilizada, 
 
 A tipagem no JS não é feita na criação da variável, o formato padrão é sempre String, mas, quando necessário nós temos que convertê-la.
 
+Para converter uma String para Num, é necessário usar ` parseInt() `, que converte para número inteiro, ou ` parseFloat() `, que converte para número real
+
 ## Node
 Faz a “interpretação” do código, dependendo da linguagem escolhida o tipo de serviço necessário no Servidor é diferente. Para rodar o JavaScript no Servidor é necessário o Node.JS. O Node é o serviço que permite interpretar o JavaScript no Back-End.
 
