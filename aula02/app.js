@@ -38,7 +38,13 @@ entradaDados.question('Digite o nome do aluno: ', function (nome) {
 
                 // Entrada da quarta nota do aluno
                 entradaDados.question('Digite a 4ª nota do aluno: ', function (nota4) {
-                let valor4 = nota4
+                    let valor4 = nota4
+
+                    if (nomeAluno == '') {
+                        console.log('O nome do aluno deve ser informado')
+                    } else if (valor1 == '' || valor2 == '' || valor3 == '' || valor4 == '') {
+                        console.log('O valor deve ser preenchido')
+                    }
                 })
             })
         })
