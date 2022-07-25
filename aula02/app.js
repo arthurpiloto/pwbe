@@ -51,6 +51,15 @@ entradaDados.question('Digite o nome do aluno: ', function (nome) {
                         media = (parseFloat(valor1) + parseFloat(valor2) + parseFloat(valor3) + parseFloat(valor4)) / 4
                         console.log('O aluno ['+ nomeAluno +'], teve nédia igual a [' + media + ']')
                     }
+
+                    // Validação da média do aluno
+                    if (media >= 7) {
+                        console.log('Aluno aprovado')
+                    } else if (media <= 6.9 && media >= 4.0) {
+                        console.log('Aluno em exame')
+                    } else {
+                        console.log('Aluno reprovado')
+                    }
                 })
             })
         })
