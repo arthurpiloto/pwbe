@@ -49,7 +49,7 @@ entradaDados.question('Digite o nome do aluno: ', function (nome) {
                         console.log('O valor de todas as notas deve ser preenchido')
                     } else {
                         media = (parseFloat(valor1) + parseFloat(valor2) + parseFloat(valor3) + parseFloat(valor4)) / 4
-                        console.log('O aluno ['+ nomeAluno +'], teve nédia igual a [' + media + ']')
+                        console.log('O aluno ['+ nomeAluno +'], teve nédia igual a [' + media.toFixed(1) + ']') // O comando toFixed() estabelece quantas casas serão mostradas após a vírgula
                     }
 
                     // Validação da média do aluno
