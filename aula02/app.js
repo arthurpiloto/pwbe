@@ -60,6 +60,20 @@ entradaDados.question('Digite o nome do aluno: ', function (nome) {
                     } else {
                         console.log('Aluno reprovado')
                     }
+
+                    /*
+                    FORMATO DO PROFESSOR
+
+                    if (media >= 7) {
+                        statusAluno = 'APROVADO'
+                    } else if (media <= 6.9 && media >= 4.0) {
+                        statusAluno = 'EXAME'
+                    } else {
+                        statusAluno = 'REPROVADO'
+                    }
+
+                    Há a criação de uma váriavel local (statusAluno) para não haver a redundância dos comandos de console.log e possibilitar a mensagem do status em apenas uma linha de código
+                    */
                 })
             })
         })
