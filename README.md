@@ -1,5 +1,5 @@
 # Programação Web Front-End
-Conteúdo das aulas de Programação Web Front-End
+Conteúdo das aulas de Programação Web Back-End
 
 Website Front ← - - - API - - - Back-End ← - - - → Banco de Dados
 
