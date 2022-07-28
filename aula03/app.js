@@ -1,5 +1,6 @@
 console.log('Calculadora Simples')
 
+const { exit } = require('process')
 var readline = require('readline')
 var entradaDados = readline.createInterface ({
     input: process.stdin,
@@ -60,7 +61,12 @@ entradaDados.question('Digite o 1º número: ', function (valor1){
                     break
                 case 'dividir':
                 case '/':
-                    resultado = numero1 / numero2
+                    if (numero2 == 0){
+                        resultado = 'ERRO, NÃO É POSSÍVEL DIVIDIR POR 0'
+                        erro = true
+                    } else {
+                        resultado = numero1 / numero2
+                    }
                     break
                 default:
                     resultado = 'ERRO INESPERADO, REPITA O PROCESSO'
@@ -69,7 +75,8 @@ entradaDados.question('Digite o 1º número: ', function (valor1){
 
             if (erro) {
                 console.log(resultado)
-                entradaDados.close()
+                // Comando que encerra o programa
+                exit()
             } else {
                 console.log('O resultado da operação é ' + resultado.toFixed(2))
                 entradaDados.close()
