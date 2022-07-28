@@ -23,6 +23,11 @@ entradaDados.question('Digite o 1º número: ', function (valor1){
     entradaDados.question('Digite o 2º número: ', function (valor2){
         let numero2 = parseFloat(valor2)
 
+        if (isNaN(numero1) || isNaN(numero2)) {
+            console.log('ERRO, DIGITE OS NÚMEROS NOVAMENTE')
+            exit()
+        }
+
         entradaDados.question('Informe a operação:\n[+]SOMAR\n[-]SUBTRAIR\n[*]MULTIPLICAR\n[/]DIVIDIR\n:', function (opcao){
             // toUpperCase() - convente em MAIÚSCULO
             // toLowerCase() - converte em minúsculo
@@ -32,17 +37,27 @@ entradaDados.question('Digite o 1º número: ', function (valor1){
             let resultado
 
             /*
-            if (operacao == 'somar' || operacao == '+') {
-                resultado = numero1 + numero2
-            } else if (operacao == 'subtrair' || operacao == '-') {
-                resultado = numero1 - numero2
-            } else if (operacao == 'multiplicar' || operacao == '*') {
-                resultado = numero1 * numero2
-            } else if (operacao == 'dividir' || operacao == '/') {
-                resultado = numero1 / numero2
-            } else {
-                resultado = 'ERRO INESPERADO, REPITA O PROCESSO'
+            if (isNaN(numero1) || isNaN(numero2)) {
+                resultado = 'ERRO, DIGITE OS NÚMEROS NOVAMENTE'
                 erro = true
+            } else {
+                if (operacao == 'somar' || operacao == '+') {
+                    resultado = numero1 + numero2
+                } else if (operacao == 'subtrair' || operacao == '-') {
+                    resultado = numero1 - numero2
+                } else if (operacao == 'multiplicar' || operacao == '*') {
+                    resultado = numero1 * numero2
+                } else if (operacao == 'dividir' || operacao == '/') {
+                    if (numero2 == 0){
+                        resultado = 'ERRO, NÃO É POSSÍVEL DIVIDIR POR 0'
+                        erro = true
+                    } else {
+                        resultado = numero1 / numero2
+                    }
+                } else {
+                    resultado = 'ERRO INESPERADO, REPITA O PROCESSO'
+                    erro = true
+                }
             }
             */
 
