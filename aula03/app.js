@@ -23,7 +23,7 @@ entradaDados.question('Digite o 1º número: ', function (valor1){
     entradaDados.question('Digite o 2º número: ', function (valor2){
         let numero2 = parseFloat(valor2)
 
-        entradaDados.question('Informe a operação: [+]Somar [-]Subtrair [*]Multiplicar [/]Dividir: ', function (opcao){
+        entradaDados.question('Informe a operação:\n[+]SOMAR\n[-]SUBTRAIR\n[*]MULTIPLICAR\n[/]DIVIDIR\n:', function (opcao){
             // toUpperCase() - convente em MAIÚSCULO
             // toLowerCase() - converte em minúsculo
             // Converte o texto digitado pelo usuário em minúsculo
