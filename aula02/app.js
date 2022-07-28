@@ -44,9 +44,11 @@ entradaDados.question('Digite o nome do aluno: ', function (nome) {
                     // Validação para nome do aluno
                     if (nomeAluno == '') {
                         console.log('O nome do aluno deve ser informado')
+                        entradaDados.close()
                     // Validação para as notas
                     } else if (valor1 == '' || valor2 == '' || valor3 == '' || valor4 == '') {
                         console.log('O valor de todas as notas deve ser preenchido')
+                        entradaDados.close()
                     } else {
                         media = (parseFloat(valor1) + parseFloat(valor2) + parseFloat(valor3) + parseFloat(valor4)) / 4
                         console.log('O aluno ['+ nomeAluno +'], teve nédia igual a [' + media.toFixed(1) + ']') // O comando toFixed() estabelece quantas casas serão mostradas após a vírgula
@@ -55,11 +57,16 @@ entradaDados.question('Digite o nome do aluno: ', function (nome) {
                     // Validação da média do aluno
                     if (media >= 7) {
                         console.log('Aluno aprovado')
+                        entradaDados.close()
                     } else if (media <= 6.9 && media >= 4.0) {
                         console.log('Aluno em exame')
+                        entradaDados.close()
                     } else {
                         console.log('Aluno reprovado')
+                        entradaDados.close()
                     }
+
+                    // O comando entradaDados.close() fecha o objeto ao final da execução do código
 
                     /*
                     FORMATO DO PROFESSOR
