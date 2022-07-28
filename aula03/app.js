@@ -27,10 +27,12 @@ entradaDados.question('Digite o 1º número: ', function (valor1){
             // toLowerCase() - converte em minúsculo
             // Converte o texto digitado pelo usuário em minúsculo
             let operacao = opcao.toLowerCase()
+            let erro = false
             let resultado
 
+            /*
             if (operacao == 'somar' || operacao == '+') {
-                resultado = numero1 + numero2    
+                resultado = numero1 + numero2
             } else if (operacao == 'subtrair' || operacao == '-') {
                 resultado = numero1 - numero2
             } else if (operacao == 'multiplicar' || operacao == '*') {
@@ -38,9 +40,40 @@ entradaDados.question('Digite o 1º número: ', function (valor1){
             } else if (operacao == 'dividir' || operacao == '/') {
                 resultado = numero1 / numero2
             } else {
-                console.log('ERRO INESPERADO REPITA O PROCESSO')
+                resultado = 'ERRO INESPERADO, REPITA O PROCESSO'
+                erro = true
             }
-            console.log('O resultado da operação é ' + resultado)
+            */
+
+            switch (operacao) {
+                case 'somar':
+                case '+':
+                    resultado = numero1 + numero2
+                    break
+                case 'subtrair':
+                case '-':
+                    resultado = numero1 - numero2
+                    break
+                case 'multiplicar':
+                case '*':
+                    resultado = numero1 * numero2
+                    break
+                case 'dividir':
+                case '/':
+                    resultado = numero1 / numero2
+                    break
+                default:
+                    resultado = 'ERRO INESPERADO, REPITA O PROCESSO'
+                    erro = true
+            }
+
+            if (erro) {
+                console.log(resultado)
+                entradaDados.close()
+            } else {
+                console.log('O resultado da operação é ' + resultado.toFixed(2))
+                entradaDados.close()
+            }
         })
     })
 })
