@@ -32,7 +32,14 @@ A tipagem no JS não é feita na criação da variável, o formato padrão é se
 
 Para converter uma String para Num, é necessário usar ` parseInt() `, que converte para número inteiro, ou ` parseFloat() `, que converte para número real
 
-Na criação de funções é recomendado que crie-as fora do projeto principal, ou seja, fazer uma pasta e arquivo dedicados apenas para funções
+Na criação de funções é recomendado que crie-as fora do projeto principal, ou seja, fazer uma pasta e arquivo dedicados apenas para funções. Todo arquivo de função precisa de uma documentação. 
+- Objetivo
+- Autor
+- Data de criação
+- Histórico de modificações
+- Versão do arquivo
+
+O GitHub também é recomendado para documentar o trajeto dos seus projetos.
 
 ## Node
 Faz a “interpretação” do código, dependendo da linguagem escolhida o tipo de serviço necessário no Servidor é diferente. Para rodar o JavaScript no Servidor é necessário o Node.JS. O Node é o serviço que permite interpretar o JavaScript no Back-End.
