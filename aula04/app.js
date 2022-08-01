@@ -36,6 +36,9 @@ entradaDados.question('Digite o 1º número: ', function (valor1){
             let erro = false
             let resultado
 
+            // Chama a função que realizará os cálculos matemáticos
+            resultado = calcular(numero1, numero2, operacao)
+
             /*
             if (isNaN(numero1) || isNaN(numero2)) {
                 resultado = 'ERRO, DIGITE OS NÚMEROS NOVAMENTE'
@@ -61,33 +64,6 @@ entradaDados.question('Digite o 1º número: ', function (valor1){
             }
             */
 
-            switch (operacao) {
-                case 'somar':
-                case '+':
-                    resultado = numero1 + numero2
-                    break
-                case 'subtrair':
-                case '-':
-                    resultado = numero1 - numero2
-                    break
-                case 'multiplicar':
-                case '*':
-                    resultado = numero1 * numero2
-                    break
-                case 'dividir':
-                case '/':
-                    if (numero2 == 0){
-                        resultado = 'ERRO, NÃO É POSSÍVEL DIVIDIR POR 0'
-                        erro = true
-                    } else {
-                        resultado = numero1 / numero2
-                    }
-                    break
-                default:
-                    resultado = 'ERRO INESPERADO, REPITA O PROCESSO'
-                    erro = true
-            }
-
             if (erro) {
                 console.log(resultado)
                 // Comando que encerra o programa
@@ -99,3 +75,41 @@ entradaDados.question('Digite o 1º número: ', function (valor1){
         })
     })
 })
+
+// Método tradicional de se criar uma função
+function calcular(valor1, valor2, opcaoCalculo) {
+    // Criando variáveis locais para receber o conteúdo dos argumentos que foram encaminhados na function
+    let numero1 = valor1
+    let numero2 = valor2
+    let operacao = opcaoCalculo.toLowerCase()
+    // Criando novamente a variável resultado (escopo local)
+    let resultado
+
+    switch (operacao) {
+        case 'somar':
+        case '+':
+            resultado = numero1 + numero2
+            break
+        case 'subtrair':
+        case '-':
+            resultado = numero1 - numero2
+            break
+        case 'multiplicar':
+        case '*':
+            resultado = numero1 * numero2
+            break
+        case 'dividir':
+        case '/':
+            if (numero2 == 0){
+                resultado = 'ERRO, NÃO É POSSÍVEL DIVIDIR POR 0'
+                erro = true
+            } else {
+                resultado = numero1 / numero2
+            }
+            break
+        default:
+            resultado = 'ERRO INESPERADO, REPITA O PROCESSO'
+            erro = true
+    }   
+    return resultado
+}
