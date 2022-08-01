@@ -1,5 +1,9 @@
 console.log('Calculadora Simples')
 
+// Import da função calcular
+// Normalmente os imports são declarados como const
+const { calcular } = require('./modulos/calculadora.js')
+
 const { exit } = require('process')
 var readline = require('readline')
 var entradaDados = readline.createInterface ({
@@ -68,49 +72,3 @@ entradaDados.question('Digite o 1º número: ', function (valor1){
         })
     })
 })
-
-// Método tradicional de se criar uma função
-function calcular(valor1, valor2, opcaoCalculo) {
-    // Criando variáveis locais para receber o conteúdo dos argumentos que foram encaminhados na function
-    let numero1 = valor1
-    let numero2 = valor2
-    let operacao = opcaoCalculo.toLowerCase()
-    // Criando novamente a variável (escopo local)
-    let resultado
-    let erro = false
-
-    switch (operacao) {
-        case 'somar':
-        case '+':
-            resultado = numero1 + numero2
-            break
-        case 'subtrair':
-        case '-':
-            resultado = numero1 - numero2
-            break
-        case 'multiplicar':
-        case '*':
-            resultado = numero1 * numero2
-            break
-        case 'dividir':
-        case '/':
-            if (numero2 == 0){
-                console.log('ERRO, NÃO É POSSÍVEL DIVIDIR POR 0')
-                erro = true
-                exit()
-            } else {
-                resultado = numero1 / numero2
-            }
-            break
-        default:
-            console.log('ERRO INESPERADO, REPITA O PROCESSO')
-            erro = true
-            exit()
-    }
-    
-    if (erro) {
-        return false
-    } else {
-        return resultado
-    }
-}
