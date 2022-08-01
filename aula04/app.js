@@ -33,11 +33,13 @@ entradaDados.question('Digite o 1º número: ', function (valor1){
             // toLowerCase() - converte em minúsculo
             // Converte o texto digitado pelo usuário em minúsculo
             let operacao = opcao.toLowerCase()
-            let erro = false
             let resultado
 
-            // Chama a função que realizará os cálculos matemáticos
-            resultado = calcular(numero1, numero2, operacao)
+            // Chama a função que realizará os cálculos matemáticos, verifica se há erro e retorna a mensagem na tela
+            if (resultado = calcular(numero1, numero2, operacao)) {
+                console.log('O resultado da operação é: ' + resultado.toFixed(2))
+                exit()
+            }
 
             /*
             if (isNaN(numero1) || isNaN(numero2)) {
@@ -63,15 +65,6 @@ entradaDados.question('Digite o 1º número: ', function (valor1){
                 }
             }
             */
-
-            if (erro) {
-                console.log(resultado)
-                // Comando que encerra o programa
-                exit()
-            } else {
-                console.log('O resultado da operação é ' + resultado.toFixed(2))
-                entradaDados.close()
-            }
         })
     })
 })
@@ -82,8 +75,9 @@ function calcular(valor1, valor2, opcaoCalculo) {
     let numero1 = valor1
     let numero2 = valor2
     let operacao = opcaoCalculo.toLowerCase()
-    // Criando novamente a variável resultado (escopo local)
+    // Criando novamente a variável (escopo local)
     let resultado
+    let erro = false
 
     switch (operacao) {
         case 'somar':
@@ -101,15 +95,22 @@ function calcular(valor1, valor2, opcaoCalculo) {
         case 'dividir':
         case '/':
             if (numero2 == 0){
-                resultado = 'ERRO, NÃO É POSSÍVEL DIVIDIR POR 0'
+                console.log('ERRO, NÃO É POSSÍVEL DIVIDIR POR 0')
                 erro = true
+                exit()
             } else {
                 resultado = numero1 / numero2
             }
             break
         default:
-            resultado = 'ERRO INESPERADO, REPITA O PROCESSO'
+            console.log('ERRO INESPERADO, REPITA O PROCESSO')
             erro = true
-    }   
-    return resultado
+            exit()
+    }
+    
+    if (erro) {
+        return false
+    } else {
+        return resultado
+    }
 }
