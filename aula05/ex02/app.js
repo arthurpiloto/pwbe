@@ -8,7 +8,7 @@ console.log('\nCALCULAR TABUADA SIMPLES')
 
 // Import da função calcularTabuada
 // Import e criação da instância de interação com usuário
-const { tabuada, calcularTabuada } = require(`./modulos/tabuada.js`)
+const { calcularTabuada } = require(`./modulos/tabuada.js`)
 var readline = require('readline')
 const { exit } = require('process')
 var entradaDados = readline.createInterface ({
