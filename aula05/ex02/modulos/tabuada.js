@@ -22,6 +22,7 @@ const calcularTabuada = function (numero1) {
 
     /* FOR */
     console.log(`\n************* TESTANDO FOR *************`)
+    // Na estrutura for é obrigatório usar ++ na atualização da variável contadora
     for (cont = 0; cont <= 10; cont++) {
         resultado = tabuada * cont
         console.log(`${tabuada} x ${cont} = ${resultado}`)
