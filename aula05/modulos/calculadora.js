@@ -97,7 +97,7 @@ const calcular = function(valor1, valor2, opcaoCalculo) {
     if (erro) {
         return false
     } else {
-        return resultado
+        return resultado.toFixed(2)
     }
 }
 

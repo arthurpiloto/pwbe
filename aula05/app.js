@@ -18,13 +18,13 @@ var entradaDados = readline.createInterface ({
 */
 
 // Entrada do valor1
-entradaDados.question('Digite o 1º número: ', function (valor1){
+entradaDados.question('Digite o 1º número: ', function (valor1) {
     // Conversão do valor1 (String) para Float
     let numero1 = parseFloat(valor1)
     /* O comando 'typeof()' retorna qual é o tipo de dados da variável ou um objeto; console.log(typeof(valor1)) = String */
 
     // Entrada do valor2
-    entradaDados.question('Digite o 2º número: ', function (valor2){
+    entradaDados.question('Digite o 2º número: ', function (valor2) {
         let numero2 = parseFloat(valor2)
 
         if (isNaN(numero1) || isNaN(numero2)) {
@@ -32,7 +32,7 @@ entradaDados.question('Digite o 1º número: ', function (valor1){
             exit()
         }
 
-        entradaDados.question('Informe a operação:\n[+]SOMAR\n[-]SUBTRAIR\n[*]MULTIPLICAR\n[/]DIVIDIR\n:', function (opcao){
+        entradaDados.question('Informe a operação:\n[+]SOMAR\n[-]SUBTRAIR\n[*]MULTIPLICAR\n[/]DIVIDIR\n:', function (opcao) {
             // toUpperCase() - convente em MAIÚSCULO
             // toLowerCase() - converte em minúsculo
             // Converte o texto digitado pelo usuário em minúsculo
@@ -41,7 +41,7 @@ entradaDados.question('Digite o 1º número: ', function (valor1){
 
             // Chama a função que realizará os cálculos matemáticos, verifica se há erro e retorna a mensagem na tela
             if (resultado = calcular(numero1, numero2, operacao)) {
-                console.log('O resultado da operação é: ' + resultado.toFixed(2))
+                console.log('O resultado da operação é: ' + resultado)
                 exit()
             }
 
