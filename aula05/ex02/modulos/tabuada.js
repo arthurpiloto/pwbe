@@ -9,8 +9,8 @@ const calcularTabuada = function (numero1) {
     let tabuada = numero1
     let resultado
 
-    /* WHILE */
     let cont = 0
+    /* WHILE 
     while (cont <= 10) {
         resultado = tabuada * cont
         console.log(`${tabuada} x ${cont} = ${resultado}`)
@@ -18,6 +18,11 @@ const calcularTabuada = function (numero1) {
         // cont = cont + 1
         // cont ++
     }
+    */
 
     /* FOR */
+    for (cont = 0; cont <= 10; cont++) {
+        resultado = tabuada * cont
+        console.log(`${tabuada} x ${cont} = ${resultado}`)
+    }
 }
