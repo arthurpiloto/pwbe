@@ -14,62 +14,176 @@ var entradaDados = readline.createInterface ({
     output: process.stdout
 })
 
-entradaDados.question(`DIGITE O NOME DO ALUNO E O SEU SEXO(MASC/FEM): `, function (nome, sexo)
+entradaDados.question(`DIGITE O NOME DO ALUNO: `, function (nome)
 {
-    let nomeAluno = nome
-    const sexoAluno = sexo.charAt(sexo.length - 1)
+    let nomeAluno = nome.toUpperCase()
 
-    if (nomeAluno == '' || sexoAluno == '')
+    if (nomeAluno == '')
     {
-        console.log(`O NOME DO ALUNO E O SEU SEXO DEVEM SER INFORMADOS`)
+        console.log(`O NOME DO ALUNO DEVE SER INFORMADO`)
         exit()
     }
     else 
     {
-        entradaDados.question(`DIGITE O NOME DO PROFESSOR E O SEU SEXO(MASC/FEM): `, function (nome, sexo)
+        entradaDados.question(`DIGITE O SEXO DO ALUNO (MASCULINO/FEMININO): `, function (sexo)
         {
-            let nomeProf = nome
-            let sexoProf = sexo
+            let sexoAluno = sexo.toUpperCase()
 
-            if (nomeProf == '' || sexoProf == '')
+            if (sexoAluno == '')
             {
-                console.log(`O NOME DO PROFESSOR E O SEU SEXO DEVEM SER INFORMADOS`)
+                console.log(`O SEXO DO ALUNO DEVE SER INFORMADO`)
                 exit()
             }
             else 
             {
-                entradaDados.question(`DIGITE O NOME DO CURSO E DA DISCIPLINA: `, function (nome1, nome2)
+                entradaDados.question(`DIGITE O NOME DO PROFESSOR: `, function (nome)
                 {
-                    let nomeCurso = nome1
-                    let nomeDisciplina = nome2
+                    let nomeProf = nome.toUpperCase()
 
-                    if (nomeCurso == '' || nomeDisciplina == '')
+                    if (nomeProf == '')
                     {
-                        console.log(`O NOME DO CURSO E DA DISCIPLINA DEVEM SER INFORMADOS`)
+                        console.log(`O NOME DO PROFESSOR DEVE SER INFORMADO`)
                         exit()
                     }
                     else
                     {
-                        entradaDados.question(`DIGITE AS QUATRO NOTAS: `, function (valor1, valor2, valor3, valor4)
+                        entradaDados.question(`DIGITE O SEXO DO PROFESSOR (MASCULINO/FEMININO): `, function (sexo)
                         {
-                            let nota1 = valor1
-                            let nota2 = valor2
-                            let nota3 = valor3
-                            let nota4 = valor4
+                            let sexoProf = sexo.toUpperCase()
 
-                            if (nota1 == '' || nota2 == '' || nota3 == '' || nota4 == '')
+                            if (sexoProf == '')
                             {
-                                console.log(`TODAS AS NOTAS DEVEM SER INFORMADAS`)
+                                console.log(`O SEXO DO PROFESSOR DEVE SER INFORMADO`)
                                 exit()
                             }
-                            else if (nota1 < 0 || nota1 > 100 || nota2 < 0 || nota2 > 100 || nota3 < 0 || nota3 > 100 || nota4 < 0 || nota4 > 100)
+                            else
                             {
-                                console.log(`TODAS AS NOTAS DEVEM ESTAR ENTRE 0 E 100 PONTOS`)
-                                exit()
-                            }
-                            else if (sexoAluno == `masculino`)
-                            {
+                                entradaDados.question(`DIGITE O NOME DO CURSO: `, function (curso)
+                                {
+                                    let nomeCurso = curso.toUpperCase()
 
+                                    if (nomeCurso == '')
+                                    {
+                                        console.log(`O NOME DO CURSO DEVE SER INFORMADO`)
+                                        exit()
+                                    }
+                                    else
+                                    {
+                                        entradaDados.question(`DIGITE O NOME DA DISCIPLINA: `, function (disciplina)
+                                        {
+                                            let nomeDisciplina = disciplina.toUpperCase()
+
+                                            if (nomeDisciplina == '')
+                                            {
+                                                console.log(`O NOME DA DISCIPLINA DEVE SER INFORMADO`)
+                                                exit()
+                                            }
+                                            else
+                                            {
+                                                entradaDados.question(`DIGITE A 1ª NOTA DO ALUNO: `, function (valor1)
+                                                {
+                                                    let nota1 = parseFloat(valor1)
+
+                                                    entradaDados.question(`DIGITE A 2ª NOTA DO ALUNO: `, function (valor2)
+                                                    {
+                                                        let nota2 = parseFloat(valor2)
+
+                                                        entradaDados.question(`DIGITE A 3ª NOTA DO ALUNO: `, function (valor3)
+                                                        {
+                                                            let nota3 = parseFloat(valor3)
+
+                                                            entradaDados.question(`DIGITE A 4ª NOTA DO ALUNO: `, function (valor4)
+                                                            {
+                                                                let nota4 = parseFloat(valor4)
+                                                                let notaMedia
+                                                                let status
+
+                                                                notaMedia = calcularMedia(nota1, nota2, nota3, nota4)
+                                                                let notaExame = 0
+                                                                let mediaExame = 0
+
+                                                                if (notaMedia >= 70)
+                                                                {
+                                                                    status = `APROVADO`
+                                                                }
+                                                                else if (notaMedia >= 50 && notaMedia <= 69)
+                                                                {
+                                                                    status = `EXAME`
+                                                                    entradaDados.question(`DIGITE A NOTA DO EXAME: `, function (valor)
+                                                                    {
+                                                                        notaExame = parseFloat(valor)
+                                                                        mediaExame = (notaExame + notaMedia) / 2
+
+                                                                        if (mediaExame >= 60)
+                                                                        {
+                                                                            status = `APROVADO EM EXAME`
+                                                                        
+                                                                            // SAÍDA DE DADOS
+                                                                            if (sexoAluno == `MASCULINO`)
+                                                                            {
+                                                                                console.log(`\nO ALUNO ${nomeAluno} FOI ${status} NA DISCIPLINA ${nomeDisciplina}`)
+                                                                                console.log(`NOTAS DO ALUNO: ${nota1}, ${nota2}, ${nota3}, ${nota4}, NOTA DO EXAME:${notaExame}`)
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                console.log(`A ALUNA ${nomeAluno} FOI ${status} NA DISCIPLINA ${nomeDisciplina}`)
+                                                                                console.log(`NOTAS DA ALUNA: ${nota1}, ${nota2}, ${nota3}, ${nota4}, NOTA DO EXAME:${notaExame}`)
+                                                                            }
+                                                                            console.log(`CURSO: ${nomeCurso}`)
+                                                                            if (sexoProf == `MASCULINO`)
+                                                                            {
+                                                                                console.log(`PROFESSOR: ${nomeProf}`)
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                console.log(`PROFESSORA: ${nomeProf}`)
+                                                                            }
+                                                                            console.log(`MÉDIA FINAL: ${notaMedia}`)
+                                                                            console.log(`MÉDIA FINAL DO EXAME: ${mediaExame}`)
+                                                                            exit()
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            status = `REPROVADO EM EXAME`
+                                                                        }
+                                                                    })
+                                                                }
+                                                                else
+                                                                {
+                                                                    status = `REPROVADO`
+                                                                }
+
+                                                                // SAÍDA DE DADOS
+                                                                if (sexoAluno == `MASCULINO`)
+                                                                {
+                                                                    console.log(`\nO ALUNO ${nomeAluno} FOI ${status} NA DISCIPLINA ${nomeDisciplina}`)
+                                                                    console.log(`NOTAS DO ALUNO: ${nota1}, ${nota2}, ${nota3}, ${nota4}, NOTA DO EXAME:${notaExame}`)
+                                                                }
+                                                                else
+                                                                {
+                                                                    console.log(`A ALUNA ${nomeAluno} FOI ${status} NA DISCIPLINA ${nomeDisciplina}`)
+                                                                    console.log(`NOTAS DA ALUNA: ${nota1}, ${nota2}, ${nota3}, ${nota4}, NOTA DO EXAME:${notaExame}`)
+                                                                }
+                                                                console.log(`CURSO: ${nomeCurso}`)
+                                                                if (sexoProf == `MASCULINO`)
+                                                                {
+                                                                    console.log(`PROFESSOR: ${nomeProf}`)
+                                                                }
+                                                                else
+                                                                {
+                                                                    console.log(`PROFESSORA: ${nomeProf}`)
+                                                                }
+                                                                console.log(`MÉDIA FINAL: ${notaMedia}`)
+                                                                console.log(`MÉDIA FINAL DO EXAME: ${mediaExame}`)
+                                                                exit()
+                                                            })
+                                                        })
+                                                    })
+                                                })
+                                            }
+                                        })
+                                    }
+                                })
                             }
                         })
                     }
