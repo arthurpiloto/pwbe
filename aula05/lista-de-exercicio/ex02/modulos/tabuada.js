@@ -45,7 +45,7 @@ const calcularTabuada = function (numeroInicio, numeroFinal, valorInicio, valorF
         while (tabuadaInicio <= tabuadaFinal)
         {
             console.log(`\nTabuada do [${tabuadaInicio}]`)
-            while (contadorInicio <= contadorFinal)
+            for (contadorInicio; contadorInicio <= contadorFinal; contadorInicio++)
             {
                 resultado = tabuadaInicio * contadorInicio
                 console.log(`${tabuadaInicio} x ${contadorInicio} = ${resultado}`)
