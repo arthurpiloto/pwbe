@@ -16,7 +16,7 @@ var entradaDados = readline.createInterface({
 
 entradaDados.question(`INSIRA O PRIMEIRO NÚMERO: `, function (valor1)
 {
-    let numeroInicial = valor1
+    let numeroInicial = parseFloat(valor1)
     
     if (isNaN(numeroInicial))
     {
@@ -26,7 +26,7 @@ entradaDados.question(`INSIRA O PRIMEIRO NÚMERO: `, function (valor1)
 
     entradaDados.question(`INSIRA O SEGUNDO NÚMERO: `, function (valor2)
     {
-        let numeroFinal = valor2
+        let numeroFinal = parseFloat(valor2)
         
         if (isNaN(numeroFinal))
         {

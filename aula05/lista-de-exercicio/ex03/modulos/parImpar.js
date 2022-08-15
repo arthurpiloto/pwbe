@@ -11,9 +11,8 @@ const parImpar = function (valor1, valor2)
 {
     let numeroInicial = valor1
     let numeroFinal = valor2
-    let resultado
-
-    resultado = numeroInicial % 2
+    let numerosImpares = []
+    let numerosPares = []
 
     if (numeroInicial == "" || numeroFinal == "")
     {
@@ -36,9 +35,32 @@ const parImpar = function (valor1, valor2)
         exit()
     }
 
-    
+    for (let numero = numeroInicial; numero <= numeroFinal; numero++)
+    {
+        if (numero % 2 == 0)
+        {
+            numerosPares.push(numero)
+        }
+        else
+        {
+            numerosImpares.push(numero)
+        }
+    }
 
-    return resultado
+    console.log(`LISTA DE NÚMEROS PARES`)
+    for (let contador = 0; contador < numerosPares.length; contador++)
+    {
+        console.log(`${numerosPares[contador]}`)
+    }
+    console.log(`QTD. DE NÚMEROS ENCONTRADOS: ${numerosPares.length}`)
+
+    console.log(`\nLISTA DE NÚMEROS ÍMPARES`)
+    for (let contador = 0; contador < numerosImpares.length; contador++)
+    {
+        console.log(`${numerosImpares[contador]}`)
+    }
+    console.log(`QTD. DE NÚMEROS ENCONTRADOS: ${numerosImpares.length}`)
+    exit()
 }
 
 module.exports = {
