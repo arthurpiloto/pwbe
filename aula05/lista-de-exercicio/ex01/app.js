@@ -129,6 +129,33 @@ entradaDados.question(`DIGITE O NOME DO ALUNO(A): `, function (nome)
                                                                     console.log(`MÉDIA FINAL DO EXAME: ${mediaExame}`)
                                                                     exit()
                                                                 }
+                                                                else if (notaMedia < 50)
+                                                                {
+                                                                    status = `REPROVADO`
+                                                                    // SAÍDA DE DADOS
+                                                                    if (sexoAluno == `MASCULINO`)
+                                                                    {
+                                                                        console.log(`\nO ALUNO ${nomeAluno} FOI ${status} NA DISCIPLINA ${nomeDisciplina}`)
+                                                                        console.log(`NOTAS DO ALUNO: ${nota1}, ${nota2}, ${nota3}, ${nota4}, NOTA DO EXAME:${notaExame}`)
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        console.log(`A ALUNA ${nomeAluno} FOI ${status} NA DISCIPLINA ${nomeDisciplina}`)
+                                                                        console.log(`NOTAS DA ALUNA: ${nota1}, ${nota2}, ${nota3}, ${nota4}, NOTA DO EXAME:${notaExame}`)
+                                                                    }
+                                                                    console.log(`CURSO: ${nomeCurso}`)
+                                                                    if (sexoProf == `MASCULINO`)
+                                                                    {
+                                                                        console.log(`PROFESSOR: ${nomeProf}`)
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        console.log(`PROFESSORA: ${nomeProf}`)
+                                                                    }
+                                                                    console.log(`MÉDIA FINAL: ${notaMedia}`)
+                                                                    console.log(`MÉDIA FINAL DO EXAME: ${mediaExame}`)
+                                                                    exit()
+                                                                }
                                                                 else
                                                                 {
                                                                     console.log(`MÉDIA: ${notaMedia} - ALUNO EM EXAME`)
