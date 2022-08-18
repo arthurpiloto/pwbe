@@ -58,7 +58,7 @@ const parImpar = function (valor1, valor2, escolha)
         console.log(`QTD. DE NÚMEROS ENCONTRADOS: ${numerosPares.length}`)
         exit()
     }
-    else if (opcao == `ímpares`)
+    else if (opcao == `ímpares` || opcao == `impares`)
     {
         console.log(`\nLISTA DE NÚMEROS ÍMPARES`)
         for (let contador = 0; contador < numerosImpares.length; contador++)
