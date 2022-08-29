@@ -1,5 +1,12 @@
+/******************************************************************
+OBJETIVO: OBTER UMA LISTA DE CIDADES DE ACORDO COM A SIGLA DO 
+ESTADO
+AUTOR: ARTHUR PILOTO
+DATA DE CRIAÇÃO: 29/08/2022
+VERSÃO: 1.0
+******************************************************************/
 
-var cidades =  [
+var cities =  [
    {
       "sigla":"AC",
       "nome":"Acre",
@@ -22424,3 +22431,23 @@ var cidades =  [
    }
 ]
 
+const getCity = function (symbol) {
+   let citySymbol = symbol
+   let city = []
+   let erro = true
+
+   cities.forEach (item => {
+      if (item.sigla.indexOf(citySymbol) == 0) {
+         city.push(item.cidades)
+         erro = false
+      }
+   })
+
+   if (erro) {
+      return false
+   } else {
+      return city
+   }
+}
+
+console.log(getCity(`RJ`))
