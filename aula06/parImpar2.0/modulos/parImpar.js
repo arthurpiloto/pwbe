@@ -65,8 +65,6 @@ const getParesImpares = function(numero1, numero2) {
     return paresImpares
 }
 
-console.log(getParesImpares(1,10))
-
 module.exports = {
     getPares,
     getImpares,
