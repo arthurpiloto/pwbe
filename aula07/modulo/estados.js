@@ -36,14 +36,18 @@ var estados = [
         sigla: `GO`,
         nome: `Goiás`
     },
+    {
+        sigla: `SC`,
+        nome: `Santa Catarina`
+    },
 ]
 
 // Retorna todos os estados pela sigla
-const getSiglaEstados = function () {
+const getListEstados = function () {
     let listaEstados = []
     let erro = true
 
-    estados.forEach(item => {
+    estados.forEach (item => {
         listaEstados.push(item.sigla)
         erro = false
     })
@@ -52,5 +56,33 @@ const getSiglaEstados = function () {
         return false
     } else {
         return listaEstados
+    }
+}
+
+// Retorna os dados de um estado, tendo como base a sigla
+const getEstado = function (siglaEstado) {
+    let sigla = siglaEstado
+    // Cria um objeto do tipo JSON
+    let estado = {}
+    let erro = true
+    
+    if (typeof(sigla) != `undefined`)
+        // Tratamento para validação de sigla vazia e com diferença de caracteres
+        if (sigla != `` && sigla.length == 2) {
+            estados.forEach (item => {
+                // Localiza um item no array (indexOF)
+                if (item.sigla.indexOf(sigla.toUpperCase()) == 0) {
+                    // Criamos as chaves "sigla" e "nome" para enviar pelo JSON
+                    estado.sigla = item.sigla,
+                    estado.nome = item.nome
+                    erro = false
+                }
+            })
+        }
+
+    if (erro) {
+        return false
+    } else {
+        return estado
     }
 }
