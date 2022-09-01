@@ -22438,8 +22438,10 @@ const getCity = function (symbol) {
 
    cities.forEach (item => {
       if (item.sigla.indexOf(citySymbol) == 0) {
-         city.push(item.cidades)
-         erro = false
+         item.cidades.forEach (item2 => {
+            city.push(item2.nome)
+            erro = false
+         })
       }
    })
 
@@ -22450,4 +22452,4 @@ const getCity = function (symbol) {
    }
 }
 
-console.log(getCity(`RJ`))
+console.table(getCity(`AC`))
