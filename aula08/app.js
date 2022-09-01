@@ -17,3 +17,11 @@ const cors = require(`cors`)
 // Import da biblioteca do Body-Parser para manipular o corpo das requisições do protocolo http
 const bodyParser = require(`body-parser`)
 
+// Cria um objeto chamado "app" que será especialista nas funções do Express
+const app = express()
+
+// Request = receber dados
+// Response = devolver dados
+app.use((request, response, next) => {
+    response.header(`Access-Control-Allow-Origin`, `*`)
+})
