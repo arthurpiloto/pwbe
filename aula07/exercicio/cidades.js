@@ -22431,20 +22431,23 @@ var cities =  [
    }
 ]
 
-const getCity = function (symbol) {
+const getCities = function (symbol) {
    let citySymbol = symbol
    let city = []
    let erro = true
 
-   cities.forEach (item => {
-      if (item.sigla.indexOf(citySymbol) == 0) {
-         item.cidades.forEach (item2 => {
-            city.push(item2.nome)
-            erro = false
+   if (typeof(citySymbol) != `undefined`) {
+      if (citySymbol != `` && citySymbol.length == 2) {
+         cities.forEach (item => {
+            if (item.sigla.indexOf(citySymbol) == 0) {
+               item.cidades.forEach (item2 => {
+                  city.push(item2.nome)
+                  erro = false
+               })
+            }
          })
       }
-   })
-
+   }
    if (erro) {
       return false
    } else {
@@ -22452,4 +22455,4 @@ const getCity = function (symbol) {
    }
 }
 
-console.table(getCity(`AC`))
+console.table(getCities(`SC`))
