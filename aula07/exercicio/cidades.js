@@ -22439,7 +22439,7 @@ const getCities = function (symbol) {
    if (typeof(citySymbol) != `undefined`) {
       if (citySymbol != `` && citySymbol.length == 2) {
          cities.forEach (item => {
-            if (item.sigla.indexOf(citySymbol) == 0) {
+            if (item.sigla.indexOf(citySymbol.toUpperCase()) == 0) {
                item.cidades.forEach (item2 => {
                   city.push(item2.nome)
                   erro = false
@@ -22455,4 +22455,4 @@ const getCities = function (symbol) {
    }
 }
 
-console.table(getCities(`SC`))
+console.table(getCities(`sp`))
