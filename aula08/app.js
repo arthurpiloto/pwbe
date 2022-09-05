@@ -43,3 +43,9 @@ app.get(`estados`, cors(), async (request, response, next) => {
     response.status(200)
     response.json(message)
 })
+
+/* Para que os EndPoints possam estar funcionando, precisamos obrigatoriamente finalizar
+a API com essa function, que representa o start da API */
+app.listen(8080, () => {
+    console.log(`Server waiting requisitions`)
+})
