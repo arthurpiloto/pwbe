@@ -47,7 +47,7 @@ app.get(`/estados`, cors(), async (request, response, next) => {
 app.get(`/cidades`, cors(), async (request, response, next) => {
     let message = {message: `Welcome to City API`}
     response.status(200)
-    responde.json(message)
+    response.json(message)
 })
 
 /* Para que os EndPoints possam estar funcionando, precisamos obrigatoriamente finalizar
