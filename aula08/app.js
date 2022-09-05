@@ -18,6 +18,8 @@ const cors = require(`cors`)
 const bodyParser = require(`body-parser`)
 // Import do arquivo de estados
 const { getListEstados, getEstado } = require(`./modulo/estados.js`)
+// Import do arquivo de cidades
+const { getCities } = require(`./modulo/cidades.js`)
 
 // Cria um objeto chamado "app" que será especialista nas funções do Express
 const app = express()
@@ -68,10 +70,15 @@ app.get(`/estado/:sigla`, cors(), async (request, response, next) => {
 })
 
 // Listagem de Cidades
-app.get(`/cidades`, cors(), async (request, response, next) => {
-    let message = {message: `Welcome to City API`}
-    response.status(200)
-    response.json(message)
+app.get(`/cidades/:sigla`, cors(), async (request, response, next) => {
+    let sigla = request.params.sigla
+    cidades = getCities(sigla)
+    if (cidades) {
+        response.status(200)
+        response.json(cidades)
+    } else {
+        response.status(404)
+    }
 })
 
 /* Para que os EndPoints possam estar funcionando, precisamos obrigatoriamente finalizar
