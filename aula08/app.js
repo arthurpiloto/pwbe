@@ -23,5 +23,8 @@ const app = express()
 // Request = receber dados
 // Response = devolver dados
 app.use((request, response, next) => {
+    // Permite especificar quem serão os IP's que podem acessar a API (* = todos)
     response.header(`Access-Control-Allow-Origin`, `*`)
+    // Permite especificar quais métodos irão ser usados pela API
+    response.header(`Access-Control-Allow-Methods`, `GET, POST, PUT, DELETE, OPTIONS`)
 })
