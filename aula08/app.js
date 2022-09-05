@@ -16,6 +16,8 @@ const express = require(`express`)
 const cors = require(`cors`)
 // Import da biblioteca do Body-Parser para manipular o corpo das requisições do protocolo http
 const bodyParser = require(`body-parser`)
+// Import do arquivo de estados
+const { getListEstados, getEstado } = require(`./modulo/estados.js`)
 
 // Cria um objeto chamado "app" que será especialista nas funções do Express
 const app = express()
@@ -39,9 +41,16 @@ app.use((request, response, next) => {
 
 // EndPoints: Listagem de Estados
 app.get(`/estados`, cors(), async (request, response, next) => {
-    let message = {message: `Welcome to State API`}
-    response.status(200)
-    response.json(message)
+    let estados = getListEstados()
+    let estadosJSON = {}
+    if (estados) {
+        estadosJSON.sigla = estados
+        response.status(200)
+        response.json(estadosJSON)
+    } else {
+        response.status(400)
+        response.json(`{message : "Nothing was found"}`)
+    }
 })
 
 app.get(`/cidades`, cors(), async (request, response, next) => {
