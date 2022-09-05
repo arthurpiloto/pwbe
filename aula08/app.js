@@ -39,7 +39,7 @@ app.use((request, response, next) => {
     next()
 })
 
-// EndPoints: Listagem de Estados
+// EndPoint: Listagem de Estados
 app.get(`/estados`, cors(), async (request, response, next) => {
     let estados = getListEstados()
     let estadosJSON = {}
@@ -50,10 +50,24 @@ app.get(`/estados`, cors(), async (request, response, next) => {
         response.json(estadosJSON)
     } else {
         response.status(404)
-        response.json(`{message : "Nothing was found"}`)
     }
 })
 
+// EndPoint: Busca informações de um Estado pela sigla
+app.get(`/estado/:sigla`, cors(), async (request, response, next) => {
+    // Recebe a sigla enviada por parâmetro no EndPoint
+    let sigla = request.params.sigla
+    // Chama a função que vai localizar o Estado solicitado
+    let estado = getEstado(sigla)
+    if (estado) {
+        response.status(200)
+        response.json(estado)
+    } else {
+        response.status(404)
+    }
+})
+
+// Listagem de Cidades
 app.get(`/cidades`, cors(), async (request, response, next) => {
     let message = {message: `Welcome to City API`}
     response.status(200)
