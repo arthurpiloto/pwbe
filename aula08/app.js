@@ -38,7 +38,7 @@ app.use((request, response, next) => {
 })
 
 // EndPoints: Listagem de Estados
-app.get(`estados`, cors(), async (request, response, next) => {
+app.get(`/estados`, cors(), async (request, response, next) => {
     let message = {message: `Welcome to State API`}
     response.status(200)
     response.json(message)
