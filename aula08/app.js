@@ -44,6 +44,12 @@ app.get(`/estados`, cors(), async (request, response, next) => {
     response.json(message)
 })
 
+app.get(`/cidades`, cors, async (request, response, next) => {
+    let message = {message: `Welcome to City API`}
+    response.status(200)
+    responde.json(message)
+})
+
 /* Para que os EndPoints possam estar funcionando, precisamos obrigatoriamente finalizar
 a API com essa function, que representa o start da API */
 app.listen(8080, () => {
