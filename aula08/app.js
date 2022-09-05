@@ -27,4 +27,12 @@ app.use((request, response, next) => {
     response.header(`Access-Control-Allow-Origin`, `*`)
     // Permite especificar quais métodos irão ser usados pela API
     response.header(`Access-Control-Allow-Methods`, `GET, POST, PUT, DELETE, OPTIONS`)
+
+    // Estabelece que as permissões acima serão representadas pelo cors
+    app.use(cors())
+
+    /* Assegura que os códigos vão ter uma continuidade após o fim do bloco, ou seja, quando as linhas 
+    de códigos escritas dentro de um bloco forem terminadas ele irá ir/pular/executar as próximas linhas 
+    sem morrer naquele bloco onde está */
+    next()
 })
