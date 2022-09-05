@@ -44,11 +44,12 @@ app.get(`/estados`, cors(), async (request, response, next) => {
     let estados = getListEstados()
     let estadosJSON = {}
     if (estados) {
+        // Cria uma chave chamada "sigla" para receber os dados de estados (Array)
         estadosJSON.sigla = estados
         response.status(200)
         response.json(estadosJSON)
     } else {
-        response.status(400)
+        response.status(404)
         response.json(`{message : "Nothing was found"}`)
     }
 })
