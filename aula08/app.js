@@ -36,3 +36,10 @@ app.use((request, response, next) => {
     sem morrer naquele bloco onde está */
     next()
 })
+
+// EndPoints: Listagem de Estados
+app.get(`estados`, cors(), async (request, response, next) => {
+    let message = {message: `Welcome to State API`}
+    response.status(200)
+    response.json(message)
+})
