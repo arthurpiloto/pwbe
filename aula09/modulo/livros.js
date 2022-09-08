@@ -2356,21 +2356,25 @@ const getBook = (param) => {
     let totalBooks = {}
     let erro = true
 
-    livros.forEach (item => {
-        item.books.forEach (item2 => {
-            if (item2.title.toLowerCase().indexOf(bookName) != -1) {
-                books.push ({
-                    Name: item2.title,
-                    Description: item2.subtitle,
-                    Price: item2.price,
-                    Image: item2.image
+    if (typeof(bookName) != `undefined`) {
+        if (bookName != ``) {
+            livros.forEach (item => {
+                item.books.forEach (item2 => {
+                    if (item2.title.toLowerCase().indexOf(bookName) != -1) {
+                        books.push ({
+                            Name: item2.title,
+                            Description: item2.subtitle,
+                            Price: item2.price,
+                            Image: item2.image
+                        })
+                        erro = false
+                    }
                 })
-                erro = false
-            }
-        })
-        totalBooks.Total = books.length
-        totalBooks.Books = books
-    })
+                totalBooks.Total = books.length
+                totalBooks.Books = books
+            })
+        }
+    }
     if (erro) {
         return false
     } else {
