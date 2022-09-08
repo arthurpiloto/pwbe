@@ -1,3 +1,8 @@
+/******************************************************************
+OBJETIVO: EXERCÍCIO DE CRIAÇÃO DE UMA API
+AUTOR: ARTHUR PILOTO
+DATA DE CRIAÇÃO: 08/09/2022
+******************************************************************/
 var livros = [
     {
     "genero": "Tecnologia da Informação",
