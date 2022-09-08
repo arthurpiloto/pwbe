@@ -73,9 +73,12 @@ app.get(`/estado/:sigla`, cors(), async (request, response, next) => {
 app.get(`/cidades/:sigla`, cors(), async (request, response, next) => {
     let sigla = request.params.sigla
     cidades = getCities(sigla)
+    let cidadesJSON = {}
+
     if (cidades) {
+        cidadesJSON.cidades = cidades
         response.status(200)
-        response.json(cidades)
+        response.json(cidadesJSON)
     } else {
         response.status(404)
     }
