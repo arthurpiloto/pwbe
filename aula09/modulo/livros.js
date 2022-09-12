@@ -2375,9 +2375,9 @@ const getBook = (param) => {
                         erro = false
                     }
                 })
-                totalBooks.Total = books.length
-                totalBooks.Books = books
             })
+            totalBooks.Total = books.length
+            totalBooks.Books = books
         }
     }
     if (erro) {
