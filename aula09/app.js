@@ -28,6 +28,20 @@ app.get(`/book/:bookName`, cors(), async (request, response, next) => {
     }
 })
 
+// EndPoint para filtrar os livros
+app.get(`/book/`, cors(), async (request, response, next) => {
+    // Recebe a variável por QueryString (indicada quando precisamos criar filtros)
+    let bookName = request.query.name
+    let book = getBook(bookName)
+
+    if (book) {
+        response.status(200)
+        response.json(book)
+    } else {
+        response.status(404)
+    }
+})
+
 app.listen(8080, () => {
     console.log(`Server waiting requisitions`)
 })
