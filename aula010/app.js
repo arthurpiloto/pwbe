@@ -7,3 +7,10 @@ const express = require(`express`)
 const app = express()
 const cors = require(`cors`)
 const bodyParser = require(`body-parser`)
+
+/* 
+NOVOS COMANDOS RODADOS
+npm install prisma --save
+npx prisma
+npx prisma init
+*/
