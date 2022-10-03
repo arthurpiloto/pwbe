@@ -9,8 +9,10 @@ const cors = require(`cors`)
 const bodyParser = require(`body-parser`)
 
 /* 
+Para manipular o acesso a BD podemos usar o Prisma. Para instalá-lo, devemos rodar os seguintes comandos:
 NOVOS COMANDOS RODADOS
 npm install prisma --save
 npx prisma
 npx prisma init
+npm install @prisma/client
 */
