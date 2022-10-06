@@ -36,3 +36,10 @@ const selectAllAlunos = async () => {
     }
     return false
 }
+
+module.exports = {
+    insertAluno,
+    updateAluno,
+    deleteAluno,
+    selectAllAlunos
+}
