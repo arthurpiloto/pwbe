@@ -22,6 +22,17 @@ const deleteAluno = async (id) => {
 }
 
 // Função para retornar todos os registros do BD
-const selectAllAluno = async (aluno) => {
-
+const selectAllAlunos = async () => {
+    // Import da Classe PrismaClient, responsável pelas interações com o BD
+    const { PrismaClient } = require(`@prisma/client`)
+    // Instância da Classe PrismaClient. Criação de um Objeto
+    const prisma = new PrismaClient()
+    
+    // Cria um Objeto do tipo RecordSet (rsAlunos) para receber os dados do BD através do script SQL (select)
+    const rsAlunos = await prisma.$queryRaw `select * from tbl_aluno`
+    
+    if (rsAlunos.length > 0) {
+        return rsAlunos
+    }
+    return false
 }
