@@ -41,10 +41,8 @@ app.get(`/alunos`, cors(), async (request, response, next) => {
     let statusCode = 404
     let message
     if (dadosAlunos) {
-        let containerJSON = {}
-        containerJSON.alunos = dadosAlunos
         statusCode = 200
-        message = containerJSON
+        message = dadosAlunos
     }
     return response.status(statusCode).json(message)
 })

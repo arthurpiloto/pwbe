@@ -26,12 +26,16 @@ const listarAlunos = async () => {
     const { selectAllAlunos } = require(`../model/DAO/aluno.js`)
 
     const dadosAlunos = await selectAllAlunos()
-    // CONVERSÃO DO TIPO DE DADOS BIGINT PARA INT (???????)
-    dadosAlunos.forEach(element => {
-        element.id = Number(element.id)
-    })
+    
+    let dadosAlunosJSON = {}
     if (dadosAlunos) {
-        return dadosAlunos
+        // CONVERSÃO DO TIPO DE DADOS BIGINT PARA INT (???????)
+        dadosAlunos.forEach(element => {
+            element.id = Number(element.id)
+        })
+        // CRIAMOS UMA CHAVE ALUNOS NO JSON PARA RETORNAR O ARRAY DE ALUNOS
+        dadosAlunosJSON.alunos = dadosAlunos
+        return dadosAlunosJSON
     }
     return false
 }
