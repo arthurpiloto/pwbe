@@ -31,3 +31,10 @@ const listarAlunos = async () => {
     }
     return false
 }
+
+module.exports = {
+    novoAluno,
+    atualizarAluno,
+    excluirAluno,
+    listarAlunos
+}
