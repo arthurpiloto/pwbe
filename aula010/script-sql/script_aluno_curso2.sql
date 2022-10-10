@@ -50,3 +50,9 @@ insert into tbl_aluno (nome, foto, sexo, rg, cpf, email, telefone, celular, data
     '23.988.98-1', '304.567.345-09', 'maria@gmail.com', '011 4678-7666', '011 9 8709-0988', '1990-10-10');
     
 select * from tbl_aluno;
+
+insert into tbl_aluno (nome, foto, sexo, rg, cpf, email, telefone, celular, data_nascimento)
+	values ('Maria Antonieta', 'https://cdn-icons-png.flaticon.com/512/1373/1373254.png', 'F',
+    '33.954.87-2', '566.089.666-90', 'maria.antonieta@gmail.com', '011 3666-5768', '011 9 9026-0643', '2004-01-06');
+    
+delete from tbl_aluno where id = 3;
