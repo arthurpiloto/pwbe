@@ -31,5 +31,3 @@ const listarAlunos = async () => {
     }
     return false
 }
-
-console.log(listarAlunos())
