@@ -26,6 +26,10 @@ const listarAlunos = async () => {
     const { selectAllAlunos } = require(`../model/DAO/aluno.js`)
 
     const dadosAlunos = await selectAllAlunos()
+    // CONVERSÃO DO TIPO DE DADOS BIGINT PARA INT (???????)
+    dadosAlunos.forEach(element => {
+        element.id = Number(element.id)
+    })
     if (dadosAlunos) {
         return dadosAlunos
     }

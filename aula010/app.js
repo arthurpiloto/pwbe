@@ -25,3 +25,31 @@ app.use((request, response, next) => {
     app.use(cors())
     next()
 })
+
+/***************************************
+ROTAS PARA CRUD DE ALUNOS 
+DATA: 10/10/2022
+***************************************/
+// ENDPOINT PARA LISTAR TODOS OS ALUNOS
+app.get(`/alunos`, cors(), async (request, response, next) => {
+    // IMPORT DO ARQUIVO controller-aluno.js
+    const controllerAluno = require(`./controller/controller-aluno.js`)
+
+    // RETORNA TODOS OS ALUNOS EXISTENTES NO BD
+    const dadosAlunos = await controllerAluno.listarAlunos()
+
+    let statusCode = 404
+    let message
+    if (dadosAlunos) {
+        let containerJSON = {}
+        containerJSON.alunos = dadosAlunos
+        statusCode = 200
+        message = containerJSON
+    }
+    return response.status(statusCode).json(message)
+})
+
+// ATIVA O SERVIDOR PARA RECEBER REQUISIÇÕES HTTP
+app.listen(8080, () => {
+    console.log(`Server Waiting Requisitions`)
+})
