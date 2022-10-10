@@ -26,6 +26,9 @@ app.use((request, response, next) => {
     next()
 })
 
+// PERMITE RECEBER UM JSON NAS REQUISIÇÕES
+const jsonParser = bodyParser.json()
+
 /***************************************
 ROTAS PARA CRUD DE ALUNOS 
 DATA: 10/10/2022
@@ -45,6 +48,27 @@ app.get(`/alunos`, cors(), async (request, response, next) => {
         message = dadosAlunos
     }
     return response.status(statusCode).json(message)
+})
+
+// ENDPOINT PARA INSERIR UM NOVO ALUNO
+app.post(`/aluno`, cors(), jsonParser, async (request, response, next) => {
+    let statusCode
+    let message
+    let headerContentType
+
+    // FORNECE O FORMATO  DE DADOS DA REQUISIÇÃO
+    headerContentType = request.headers[`content-type`]
+    if (headerContentType == `application/json`) {
+        // RECEBE OS DADOS QUE O BODY (USUÁRIO) MANDA
+        let dadosBody = request.body
+        console.log(dadosBody)
+        statusCode = 200
+        message = `Success`
+    } else {
+        statusCode = 415
+    }
+
+    response.status(statusCode).json(message)
 })
 
 // ATIVA O SERVIDOR PARA RECEBER REQUISIÇÕES HTTP
