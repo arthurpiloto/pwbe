@@ -67,15 +67,27 @@ app.post(`/aluno`, cors(), jsonParser, async (request, response, next) => {
 
         // VERIFICA SE O BODY ESTÁ VAZIO
         if (JSON.stringify(dadosBody) != `{}`) {
-            statusCode = 200
+            const controllerAluno = require(`./controller/controller-aluno.js`)
+            // CHAMA A FUNÇÃO novoAluno DA CONTROLLER E ENCAMINHA OS DADOS DO BODY
+            const novoAluno = controllerAluno.novoAluno(dadosBody)
+
+            if (novoAluno) {
+                statusCode = 201
+                message = `ITEM CRIADO COM SUCESSO`
+            } else {
+                statusCode = 500
+                message = `O ITEM NÃO PODE SER CRIADO`
+            }
         } else {
             statusCode = 400
+            message = `ESTE TIPO DE REQUISIÇÃO PRECISA DE CONTEÚDO NO BODY`
         }   
     } else {
         statusCode = 415
+        message = `CONTENT-TYPE INCORRETO. ESTA REQUISIÇÃO ACEITA APENAS JSON`
     }
 
-    response.status(statusCode).json(message)
+    return response.status(statusCode).json(message)
 })
 
 // ATIVA O SERVIDOR PARA RECEBER REQUISIÇÕES HTTP
