@@ -69,7 +69,7 @@ app.post(`/aluno`, cors(), jsonParser, async (request, response, next) => {
         if (JSON.stringify(dadosBody) != `{}`) {
             const controllerAluno = require(`./controller/controller-aluno.js`)
             // CHAMA A FUNÇÃO novoAluno DA CONTROLLER E ENCAMINHA OS DADOS DO BODY
-            const novoAluno = controllerAluno.novoAluno(dadosBody)
+            const novoAluno = await controllerAluno.novoAluno(dadosBody)
 
             if (novoAluno) {
                 statusCode = 201

@@ -9,7 +9,7 @@ VERSÃO: 1.0
 // Função para gerar um registro
 const novoAluno = async (aluno) => {
     // VALIDAÇÃO DOS CAMPOS OBRIGATÓRIOS NO BANCO DE DADOS
-    if (aluno.nome == `` || aluno.foto == `` || aluno.rg == `` || aluno.cpf == `` || aluno.email == `` || aluno.data_nascimento == ``) {
+    if (aluno.nome == `` || aluno.nome == undefined || aluno.foto == `` || aluno.foto == undefined || aluno.rg == `` || aluno.rg == undefined || aluno.cpf == `` || aluno.cpf == undefined || aluno.email == `` || aluno.email == undefined || aluno.data_nascimento == `` || aluno.data_nascimento == undefined) {
         return false
     // VALIDAÇÃO PARA VERIFICAR EMAIL VÁLIDO
     } else if (!aluno.email.includes(`@`)) {

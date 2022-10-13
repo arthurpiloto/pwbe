@@ -39,7 +39,7 @@ const deleteAluno = async (id) => {
 // Função para retornar todos os registros do BD
 const selectAllAlunos = async () => {
     // Cria um Objeto do tipo RecordSet (rsAlunos) para receber os dados do BD através do script SQL (select)
-    const rsAlunos = await prisma.$queryRaw `select * from tbl_aluno`
+    const rsAlunos = await prisma.$queryRaw `select * from tbl_aluno order by id desc`
     
     if (rsAlunos.length > 0) {
         return rsAlunos
