@@ -15,7 +15,7 @@ const novoAluno = async (aluno) => {
     } else if (!aluno.email.includes(`@`)) {
         return false
     } else {
-        const novoAluno = require(`../model/DAO/aluno.js`)
+        const novoAluno = require(`../models/DAO/aluno.js`)
         // CHAMA A FUNÇÃO PARA INSERIR UM NOVO ALUNO
         const result = novoAluno.insertAluno(aluno)
 
@@ -39,7 +39,7 @@ const excluirAluno = async (id) => {
 
 // Função para retornar todos os registros
 const listarAlunos = async () => {
-    const { selectAllAlunos } = require(`../model/DAO/aluno.js`)
+    const { selectAllAlunos } = require(`../models/DAO/aluno.js`)
 
     const dadosAlunos = await selectAllAlunos()
     
