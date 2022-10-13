@@ -8,7 +8,23 @@ VERSÃO: 1.0
 
 // Função para gerar um registro
 const novoAluno = async (aluno) => {
+    // VALIDAÇÃO DOS CAMPOS OBRIGATÓRIOS NO BANCO DE DADOS
+    if (aluno.nome == `` || aluno.foto == `` || aluno.rg == `` || aluno.cpf == `` || aluno.email == `` || aluno.data_nascimento == ``) {
+        return false
+    // VALIDAÇÃO PARA VERIFICAR EMAIL VÁLIDO
+    } else if (!aluno.email.includes(`@`)) {
+        return false
+    } else {
+        const novoAluno = require(`../model/DAO/aluno.js`)
+        // CHAMA A FUNÇÃO PARA INSERIR UM NOVO ALUNO
+        const result = novoAluno.insertAluno(aluno)
 
+        if (result) {
+            return true
+        } else {
+            return false
+        }
+    }
 }
 
 // Função para atualizar um registro
