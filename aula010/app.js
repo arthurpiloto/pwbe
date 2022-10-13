@@ -17,6 +17,7 @@ NOVOS COMANDOS RODADOS
 const express = require(`express`)
 const cors = require(`cors`)
 const bodyParser = require(`body-parser`)
+const e = require("express")
 const app = express()
 
 app.use((request, response, next) => {
@@ -56,14 +57,20 @@ app.post(`/aluno`, cors(), jsonParser, async (request, response, next) => {
     let message
     let headerContentType
 
-    // FORNECE O FORMATO  DE DADOS DA REQUISIÇÃO
+    // RECEBE O TIPO DE CONTENT TYPE QUE FOI ENVIADO NO HEADER DA REQUISIÇÃO
     headerContentType = request.headers[`content-type`]
+
+    // VALIDAR SE O CONTENT TYPE É DO TIPO application/json, QUE É O FORMATO QUE ESTAMOS TRABALHANDO NA API
     if (headerContentType == `application/json`) {
         // RECEBE OS DADOS QUE O BODY (USUÁRIO) MANDA
         let dadosBody = request.body
-        console.log(dadosBody)
-        statusCode = 200
-        message = `Success`
+
+        // VERIFICA SE O BODY ESTÁ VAZIO
+        if (JSON.stringify(dadosBody) != `{}`) {
+            statusCode = 200
+        } else {
+            statusCode = 400
+        }   
     } else {
         statusCode = 415
     }
