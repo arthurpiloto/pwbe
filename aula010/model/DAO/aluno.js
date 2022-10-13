@@ -6,9 +6,24 @@ DATA DE CRIAÇÃO: 06/10/2022
 VERSÃO: 1.0
 ************************************************************************/
 
+// Import da Classe PrismaClient, responsável pelas interações com o BD
+const { PrismaClient } = require(`@prisma/client`)
+// Instância da Classe PrismaClient. Criação de um Objeto
+const prisma = new PrismaClient()
+
 // Função para inserir um novo registro no BD
 const insertAluno = async (aluno) => {
+    let sql =  `insert into tbl_aluno (nome, foto, rg, cpf, email, data_nascimento, telefone, celular, sexo)
+    values (${aluno.nome}, ${aluno.foto}, ${aluno.rg}, ${aluno.cpf}, ${aluno.email}, ${aluno.data_nascimento}, ${aluno.telefone}, ${aluno.celular}, ${aluno.sexo})`
 
+    // EXECUTA O SCRIPT SQL NO BANCO DE DADOS. ESSE COMANDO PERMITE ENCAMINHAR UMA VARIÁVEL CONTENDO O SCRIPT
+    const result = await prisma.$executeRawUnsafe(sql)
+
+    if (result) {
+        return true
+    } else {
+        return false
+    }
 }
 
 // Função para atualizar um registro no BD
@@ -23,11 +38,6 @@ const deleteAluno = async (id) => {
 
 // Função para retornar todos os registros do BD
 const selectAllAlunos = async () => {
-    // Import da Classe PrismaClient, responsável pelas interações com o BD
-    const { PrismaClient } = require(`@prisma/client`)
-    // Instância da Classe PrismaClient. Criação de um Objeto
-    const prisma = new PrismaClient()
-    
     // Cria um Objeto do tipo RecordSet (rsAlunos) para receber os dados do BD através do script SQL (select)
     const rsAlunos = await prisma.$queryRaw `select * from tbl_aluno`
     
