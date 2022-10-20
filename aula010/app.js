@@ -18,6 +18,8 @@ const express = require(`express`)
 const cors = require(`cors`)
 const bodyParser = require(`body-parser`)
 const app = express()
+
+const { novoAluno, atualizarAluno, excluirAluno, listarAlunos } = require(`./controller/controller-aluno.js`)
 const { MESSAGE_ERROR, MESSAGE_SUCCESS } = require(`./modules/config.js`)
 
 app.use((request, response, next) => {
@@ -40,7 +42,7 @@ app.get(`/alunos`, cors(), async (request, response, next) => {
     const controllerAluno = require(`./controller/controller-aluno.js`)
 
     // RETORNA TODOS OS ALUNOS EXISTENTES NO BD
-    const dadosAlunos = await controllerAluno.listarAlunos()
+    const dadosAlunos = await listarAlunos()
 
     let statusCode = 404
     let message = MESSAGE_ERROR.NOT_FOUND_DB
@@ -67,17 +69,41 @@ app.post(`/aluno`, cors(), jsonParser, async (request, response, next) => {
 
         // VERIFICA SE O BODY ESTÁ VAZIO
         if (JSON.stringify(dadosBody) != `{}`) {
-            const controllerAluno = require(`./controller/controller-aluno.js`)
             // CHAMA A FUNÇÃO novoAluno DA CONTROLLER E ENCAMINHA OS DADOS DO BODY
-            const novoAluno = await controllerAluno.novoAluno(dadosBody)
-            statusCode = novoAluno.status
-            message = novoAluno.message
+            const dadosAluno = await novoAluno(dadosBody)
+            statusCode = dadosAluno.status
+            message = dadosAluno.message
         } else {
             statusCode = 400
             message = MESSAGE_ERROR.EMPTY_BODY
         }   
     } else {
         statusCode = 415
+        message = MESSAGE_ERROR.CONTENT_TYPE
+    }
+
+    return response.status(statusCode).json(message)
+})
+
+app.put(`/updatealuno`, cors(), jsonParser, async (request, response, next) => {
+    let statusCode
+    let message
+    let headerContentType
+
+    headerContentType = request.headers[`content-type`]
+    if (headerContentType == `application/json`) {
+        let dadosBody = request.body
+
+        if (JSON.stringify(dadosBody) != `{}`) {
+            const dadosAluno = await atualizarAluno(dadosBody)
+            statusCode = dadosAluno.status
+            message = dadosAluno.message
+        } else {
+            statusCode = 400
+            message = MESSAGE_ERROR.EMPTY_BODY
+        }
+    } else {
+        statusCode = 400
         message = MESSAGE_ERROR.CONTENT_TYPE
     }
 

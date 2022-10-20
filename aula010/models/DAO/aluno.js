@@ -25,14 +25,26 @@ const insertAluno = async (aluno) => {
         } else {
             return false
         }
-    } catch (error) {
+    } catch (err) {
         return false   
     }
 }
 
 // Função para atualizar um registro no BD
 const updateAluno = async (aluno) => {
+    try {
+        let sql = `update tbl_aluno set nome = '${aluno.nome}', foto = '${aluno.foto}', rg = '${aluno.rg}', cpf = '${aluno.cpf}', email = '${aluno.email}', data_nascimento = '${aluno.data_nascimento}', telefone = '${aluno.telefone}', celular = '${aluno.celular}', sexo = '${aluno.sexo}' where id = ${aluno.id}`
 
+        const result = await prisma.$executeRawUnsafe(sql)
+
+        if (result) {
+            return true
+        } else {
+            return false
+        }
+    } catch (err) {
+        return false   
+    }
 }
 
 // Função para excluir um registro no BD

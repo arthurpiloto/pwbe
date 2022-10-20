@@ -6,6 +6,7 @@ DATA DE CRIAÇÃO: 06/10/2022
 VERSÃO: 1.0
 ************************************************************************/
 
+const { insertAluno, updateAluno, deleteAluno, selectAllAlunos } = require(`../models/DAO/aluno.js`)
 const { MESSAGE_ERROR, MESSAGE_SUCCESS } = require(`../modules/config.js`)
 
 // Função para gerar um registro
@@ -17,9 +18,8 @@ const novoAluno = async (aluno) => {
     } else if (!aluno.email.includes(`@`)) {
         return {status: 400, message: MESSAGE_ERROR.INVALID_EMAIL}
     } else {
-        const novoAluno = require(`../models/DAO/aluno.js`)
         // CHAMA A FUNÇÃO PARA INSERIR UM NOVO ALUNO
-        const result = await novoAluno.insertAluno(aluno)
+        const result = await insertAluno(aluno)
 
         if (result) {
             return {status: 201, message: MESSAGE_SUCCESS.INSERT_ITEM}
@@ -31,7 +31,20 @@ const novoAluno = async (aluno) => {
 
 // Função para atualizar um registro
 const atualizarAluno = async (aluno) => {
-    
+    if (aluno.id == `` || aluno.id == undefined || aluno.nome == `` || aluno.nome == undefined || aluno.foto == `` || aluno.foto == undefined || aluno.rg == `` || aluno.rg == undefined || aluno.cpf == `` || aluno.cpf == undefined || aluno.email == `` || aluno.email == undefined || aluno.data_nascimento == `` || aluno.data_nascimento == undefined) {
+        return {status: 400, message: MESSAGE_ERROR.REQUIRED_FIELDS}
+    } else if (!aluno.email.includes(`@`)) {
+        return {status: 400, message: MESSAGE_ERROR.INVALID_EMAIL}
+    } else {
+        // CHAMA FUNÇÃO PARA ATUALIZAR UM REGISTRO DE ALUNO
+        const result = await updateAluno(aluno)
+
+        if (result) {
+            return {status: 201, message: MESSAGE_SUCCESS.UPDATE_ITEM}
+        } else {
+            return {status: 500, message: MESSAGE_ERROR.INTERNAL_ERROR_DB}
+        }
+    }
 }
 
 // Função para excluir um registro
