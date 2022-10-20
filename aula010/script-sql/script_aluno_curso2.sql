@@ -56,3 +56,7 @@ insert into tbl_aluno (nome, foto, sexo, rg, cpf, email, telefone, celular, data
     '33.954.87-2', '566.089.666-90', 'maria.antonieta@gmail.com', '011 3666-5768', '011 9 9026-0643', '2004-01-06');
     
 delete from tbl_aluno where id = 3;
+
+# Seleciona o id, entretanto converte o retorno para float (a conversão para int não funciona)
+	# O comando após o cast (as id) muda o nome de exibição da coluna para id, pois quando o cast é executado o nome de exibição da coluna é mudado
+select cast(id as float) as id, nome from tbl_aluno
