@@ -46,9 +46,10 @@ const listarAlunos = async () => {
     let dadosAlunosJSON = {}
     if (dadosAlunos) {
         // CONVERSÃO DO TIPO DE DADOS BIGINT PARA INT (???????)
-        dadosAlunos.forEach(element => {
-            element.id = Number(element.id)
-        })
+        // dadosAlunos.forEach(element => {
+        //     element.id = Number(element.id)
+        // })
+        
         // CRIAMOS UMA CHAVE ALUNOS NO JSON PARA RETORNAR O ARRAY DE ALUNOS
         dadosAlunosJSON.alunos = dadosAlunos
         return dadosAlunosJSON
