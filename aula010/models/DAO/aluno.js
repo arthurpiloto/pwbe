@@ -20,7 +20,11 @@ const insertAluno = async (aluno) => {
         // EXECUTA O SCRIPT SQL NO BANCO DE DADOS. ESSE COMANDO PERMITE ENCAMINHAR UMA VARIÁVEL CONTENDO O SCRIPT
         const result = await prisma.$executeRawUnsafe(sql)
 
-        return true
+        if (result) {
+            return true
+        } else {
+            return false
+        }
     } catch (error) {
         return false   
     }
