@@ -59,4 +59,4 @@ delete from tbl_aluno where id = 3;
 
 # Seleciona o id, entretanto converte o retorno para float (a conversão para int não funciona)
 	# O comando após o cast (as id) muda o nome de exibição da coluna para id, pois quando o cast é executado o nome de exibição da coluna é mudado
-select cast(id as float) as id, nome from tbl_aluno
+select cast(id as float) as id, nome from tbl_aluno;
