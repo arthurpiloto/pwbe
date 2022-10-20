@@ -31,7 +31,9 @@ const novoAluno = async (aluno) => {
 
 // Função para atualizar um registro
 const atualizarAluno = async (aluno) => {
-    if (aluno.id == `` || aluno.id == undefined || aluno.nome == `` || aluno.nome == undefined || aluno.foto == `` || aluno.foto == undefined || aluno.rg == `` || aluno.rg == undefined || aluno.cpf == `` || aluno.cpf == undefined || aluno.email == `` || aluno.email == undefined || aluno.data_nascimento == `` || aluno.data_nascimento == undefined) {
+    if (aluno.id == `` || aluno.id == undefined) {
+        return {status: 400, message: MESSAGE_ERROR.REQUIRED_ID}
+    } else if (aluno.nome == `` || aluno.nome == undefined || aluno.foto == `` || aluno.foto == undefined || aluno.rg == `` || aluno.rg == undefined || aluno.cpf == `` || aluno.cpf == undefined || aluno.email == `` || aluno.email == undefined || aluno.data_nascimento == `` || aluno.data_nascimento == undefined) {
         return {status: 400, message: MESSAGE_ERROR.REQUIRED_FIELDS}
     } else if (!aluno.email.includes(`@`)) {
         return {status: 400, message: MESSAGE_ERROR.INVALID_EMAIL}
