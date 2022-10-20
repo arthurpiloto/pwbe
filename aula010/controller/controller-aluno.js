@@ -6,23 +6,25 @@ DATA DE CRIAÇÃO: 06/10/2022
 VERSÃO: 1.0
 ************************************************************************/
 
+const { MESSAGE_ERROR, MESSAGE_SUCCESS } = require(`../modules/config.js`)
+
 // Função para gerar um registro
 const novoAluno = async (aluno) => {
     // VALIDAÇÃO DOS CAMPOS OBRIGATÓRIOS NO BANCO DE DADOS
     if (aluno.nome == `` || aluno.nome == undefined || aluno.foto == `` || aluno.foto == undefined || aluno.rg == `` || aluno.rg == undefined || aluno.cpf == `` || aluno.cpf == undefined || aluno.email == `` || aluno.email == undefined || aluno.data_nascimento == `` || aluno.data_nascimento == undefined) {
-        return false
+        return MESSAGE_ERROR.REQUIRED_FIELDS
     // VALIDAÇÃO PARA VERIFICAR EMAIL VÁLIDO
     } else if (!aluno.email.includes(`@`)) {
-        return false
+        return MESSAGE_ERROR.INVALID_EMAIL
     } else {
         const novoAluno = require(`../models/DAO/aluno.js`)
         // CHAMA A FUNÇÃO PARA INSERIR UM NOVO ALUNO
-        const result = novoAluno.insertAluno(aluno)
+        const result = await novoAluno.insertAluno(aluno)
 
         if (result) {
             return true
         } else {
-            return false
+            return MESSAGE_ERROR.INTERNAL_ERROR_DB
         }
     }
 }
@@ -49,7 +51,7 @@ const listarAlunos = async () => {
         // dadosAlunos.forEach(element => {
         //     element.id = Number(element.id)
         // })
-        
+
         // CRIAMOS UMA CHAVE ALUNOS NO JSON PARA RETORNAR O ARRAY DE ALUNOS
         dadosAlunosJSON.alunos = dadosAlunos
         return dadosAlunosJSON

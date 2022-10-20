@@ -17,8 +17,8 @@ NOVOS COMANDOS RODADOS
 const express = require(`express`)
 const cors = require(`cors`)
 const bodyParser = require(`body-parser`)
-const e = require("express")
 const app = express()
+const { MESSAGE_ERROR, MESSAGE_SUCCESS } = require(`./modules/config.js`)
 
 app.use((request, response, next) => {
     response.header(`Access-Control-Allow-Origin`, `*`)
@@ -43,7 +43,7 @@ app.get(`/alunos`, cors(), async (request, response, next) => {
     const dadosAlunos = await controllerAluno.listarAlunos()
 
     let statusCode = 404
-    let message
+    let message = MESSAGE_ERROR.NOT_FOUND_DB
     if (dadosAlunos) {
         statusCode = 200
         message = dadosAlunos
@@ -71,20 +71,20 @@ app.post(`/aluno`, cors(), jsonParser, async (request, response, next) => {
             // CHAMA A FUNÇÃO novoAluno DA CONTROLLER E ENCAMINHA OS DADOS DO BODY
             const novoAluno = await controllerAluno.novoAluno(dadosBody)
 
-            if (novoAluno) {
+            if (novoAluno === true) {
                 statusCode = 201
-                message = `ITEM CRIADO COM SUCESSO`
+                message = MESSAGE_SUCCESS.INSERT_ITEM
             } else {
                 statusCode = 500
-                message = `O ITEM NÃO PODE SER CRIADO`
+                message = novoAluno
             }
         } else {
             statusCode = 400
-            message = `ESTE TIPO DE REQUISIÇÃO PRECISA DE CONTEÚDO NO BODY`
+            message = MESSAGE_ERROR.EMPTY_BODY
         }   
     } else {
         statusCode = 415
-        message = `CONTENT-TYPE INCORRETO. ESTA REQUISIÇÃO ACEITA APENAS JSON`
+        message = MESSAGE_ERROR.CONTENT_TYPE
     }
 
     return response.status(statusCode).json(message)
