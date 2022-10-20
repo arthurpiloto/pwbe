@@ -70,14 +70,8 @@ app.post(`/aluno`, cors(), jsonParser, async (request, response, next) => {
             const controllerAluno = require(`./controller/controller-aluno.js`)
             // CHAMA A FUNÇÃO novoAluno DA CONTROLLER E ENCAMINHA OS DADOS DO BODY
             const novoAluno = await controllerAluno.novoAluno(dadosBody)
-
-            if (novoAluno === true) {
-                statusCode = 201
-                message = MESSAGE_SUCCESS.INSERT_ITEM
-            } else {
-                statusCode = 500
-                message = novoAluno
-            }
+            statusCode = novoAluno.status
+            message = novoAluno.message
         } else {
             statusCode = 400
             message = MESSAGE_ERROR.EMPTY_BODY

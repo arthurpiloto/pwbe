@@ -12,19 +12,19 @@ const { MESSAGE_ERROR, MESSAGE_SUCCESS } = require(`../modules/config.js`)
 const novoAluno = async (aluno) => {
     // VALIDAÇÃO DOS CAMPOS OBRIGATÓRIOS NO BANCO DE DADOS
     if (aluno.nome == `` || aluno.nome == undefined || aluno.foto == `` || aluno.foto == undefined || aluno.rg == `` || aluno.rg == undefined || aluno.cpf == `` || aluno.cpf == undefined || aluno.email == `` || aluno.email == undefined || aluno.data_nascimento == `` || aluno.data_nascimento == undefined) {
-        return MESSAGE_ERROR.REQUIRED_FIELDS
+        return {status: 400, message: MESSAGE_ERROR.REQUIRED_FIELDS}
     // VALIDAÇÃO PARA VERIFICAR EMAIL VÁLIDO
     } else if (!aluno.email.includes(`@`)) {
-        return MESSAGE_ERROR.INVALID_EMAIL
+        return {status: 400, message: MESSAGE_ERROR.INVALID_EMAIL}
     } else {
         const novoAluno = require(`../models/DAO/aluno.js`)
         // CHAMA A FUNÇÃO PARA INSERIR UM NOVO ALUNO
         const result = await novoAluno.insertAluno(aluno)
 
         if (result) {
-            return true
+            return {status: 201, message: MESSAGE_SUCCESS.INSERT_ITEM}
         } else {
-            return MESSAGE_ERROR.INTERNAL_ERROR_DB
+            return {status: 500, message: MESSAGE_ERROR.INTERNAL_ERROR_DB}
         }
     }
 }
