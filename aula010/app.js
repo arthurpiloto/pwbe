@@ -85,7 +85,7 @@ app.post(`/aluno`, cors(), jsonParser, async (request, response, next) => {
     return response.status(statusCode).json(message)
 })
 
-app.put(`/updatealuno`, cors(), jsonParser, async (request, response, next) => {
+app.put(`/aluno/:alunoId`, cors(), jsonParser, async (request, response, next) => {
     let statusCode
     let message
     let headerContentType
@@ -95,9 +95,17 @@ app.put(`/updatealuno`, cors(), jsonParser, async (request, response, next) => {
         let dadosBody = request.body
 
         if (JSON.stringify(dadosBody) != `{}`) {
-            const dadosAluno = await atualizarAluno(dadosBody)
-            statusCode = dadosAluno.status
-            message = dadosAluno.message
+            let id = request.params.alunoId
+
+            if (id != `` || id == undefined) {
+                dadosBody.id = id
+                const dadosAluno = await atualizarAluno(dadosBody)
+                statusCode = dadosAluno.status
+                message = dadosAluno.message
+            } else {
+                statusCode = 400
+                message = MESSAGE_ERROR.REQUIRED_ID
+            }
         } else {
             statusCode = 400
             message = MESSAGE_ERROR.EMPTY_BODY
