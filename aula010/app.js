@@ -85,7 +85,8 @@ app.post(`/aluno`, cors(), jsonParser, async (request, response, next) => {
     return response.status(statusCode).json(message)
 })
 
-app.put(`/aluno/:alunoId`, cors(), jsonParser, async (request, response, next) => {
+// ENDPOINT PARA ATUALIZAR UM REGISTRO DE ALUNO
+app.put(`/aluno/:id`, cors(), jsonParser, async (request, response, next) => {
     let statusCode
     let message
     let headerContentType
@@ -95,7 +96,7 @@ app.put(`/aluno/:alunoId`, cors(), jsonParser, async (request, response, next) =
         let dadosBody = request.body
 
         if (JSON.stringify(dadosBody) != `{}`) {
-            let id = request.params.alunoId
+            let id = request.params.id
 
             if (id != `` || id == undefined) {
                 dadosBody.id = id
