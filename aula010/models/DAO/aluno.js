@@ -66,18 +66,39 @@ const deleteAluno = async (id) => {
 
 // Função para retornar todos os registros do BD
 const selectAllAlunos = async () => {
-    // Cria um Objeto do tipo RecordSet (rsAlunos) para receber os dados do BD através do script SQL (select)
-    const rsAlunos = await prisma.$queryRaw `select cast(id as float) as id, nome, foto, sexo, rg, cpf, email, telefone, celular, data_nascimento from tbl_aluno order by id desc;`
-    
-    if (rsAlunos.length > 0) {
-        return rsAlunos
+    try {
+        // Cria um Objeto do tipo RecordSet (rsAlunos) para receber os dados do BD através do script SQL (select)
+        const rsAlunos = await prisma.$queryRaw `select cast(id as float) as id, nome, foto, sexo, rg, cpf, email, telefone, celular, data_nascimento from tbl_aluno order by id desc;`
+        
+        if (rsAlunos.length > 0) {
+            return rsAlunos
+        }
+        return false
+    } catch (err) {
+        return false
     }
-    return false
+}
+
+// FUNÇÃO PARA RETORNAR APENAS O 
+const selectAlunoById = async (id) => {
+    try {
+        let sql = `select cast(id as float) as id, nome, foto, sexo, rg, cpf, email, telefone, celular, data_nascimento from tbl_aluno where id = ${id};`
+        const result = await prisma.$queryRawUnsafe(sql)
+        
+        if (result.length > 0) {
+            return result
+        } else {
+            return false
+        }
+    } catch (err) {
+        return false
+    }
 }
 
 module.exports = {
     insertAluno,
     updateAluno,
     deleteAluno,
-    selectAllAlunos
+    selectAllAlunos,
+    selectAlunoById
 }

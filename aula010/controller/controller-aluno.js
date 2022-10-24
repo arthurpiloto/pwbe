@@ -6,7 +6,7 @@ DATA DE CRIAÇÃO: 06/10/2022
 VERSÃO: 1.0
 ************************************************************************/
 
-const { insertAluno, updateAluno, deleteAluno, selectAllAlunos } = require(`../models/DAO/aluno.js`)
+const { insertAluno, updateAluno, deleteAluno, selectAllAlunos, selectAlunoById } = require(`../models/DAO/aluno.js`)
 const { MESSAGE_ERROR, MESSAGE_SUCCESS } = require(`../modules/config.js`)
 
 // Função para gerar um registro
@@ -84,9 +84,26 @@ const listarAlunos = async () => {
     return false
 }
 
+// FUNÇÃO PARA RETORNAR UM REGISTRO BASEADO NO ID
+const listarAlunoPorId = async (id) => {
+    if (id == `` || id == undefined) {
+        return {status: 400, message: MESSAGE_ERROR.REQUIRED_ID}
+    } else {
+        const dadosAluno = await selectAlunoById(id)
+        dadosAlunoJSON = {}
+
+        if (dadosAluno) {
+            dadosAlunoJSON.aluno = dadosAluno
+            return dadosAlunoJSON
+        }
+        return false
+    }
+}
+
 module.exports = {
     novoAluno,
     atualizarAluno,
     excluirAluno,
-    listarAlunos
+    listarAlunos,
+    listarAlunoPorId
 }

@@ -19,7 +19,7 @@ const cors = require(`cors`)
 const bodyParser = require(`body-parser`)
 const app = express()
 
-const { novoAluno, atualizarAluno, excluirAluno, listarAlunos } = require(`./controller/controller-aluno.js`)
+const { novoAluno, atualizarAluno, excluirAluno, listarAlunos, listarAlunoPorId } = require(`./controller/controller-aluno.js`)
 const { MESSAGE_ERROR, MESSAGE_SUCCESS } = require(`./modules/config.js`)
 
 app.use((request, response, next) => {
@@ -135,6 +135,30 @@ app.delete(`/aluno/:id`, cors(), jsonParser, async (request, response, next) => 
         message = MESSAGE_ERROR.REQUIRED_ID
     }
 
+    return response.status(statusCode).json(message)
+})
+
+// ENDPOINT PARA BUSCAR UM ALUNO PELO ID
+app.get(`/aluno/:id`, cors(), async (request, response, next) => {
+    let statusCode
+    let message
+    let id = request.params.id
+
+    if (id != `` && id != undefined){
+        const dadosAlunos = await listarAlunoPorId(id)
+
+        if (dadosAlunos) {
+            statusCode = 200
+            message = dadosAlunos
+        } else {
+            statusCode = 404
+            message = MESSAGE_ERROR.NOT_FOUND_DB
+        }
+    } else {
+        statusCode = 400
+        message = MESSAGE_ERROR.REQUIRED_ID
+    }
+    
     return response.status(statusCode).json(message)
 })
 
