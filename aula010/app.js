@@ -38,9 +38,6 @@ DATA: 10/10/2022
 ***************************************/
 // ENDPOINT PARA LISTAR TODOS OS ALUNOS
 app.get(`/alunos`, cors(), async (request, response, next) => {
-    // IMPORT DO ARQUIVO controller-aluno.js
-    const controllerAluno = require(`./controller/controller-aluno.js`)
-
     // RETORNA TODOS OS ALUNOS EXISTENTES NO BD
     const dadosAlunos = await listarAlunos()
 
