@@ -98,7 +98,7 @@ app.put(`/aluno/:id`, cors(), jsonParser, async (request, response, next) => {
         if (JSON.stringify(dadosBody) != `{}`) {
             let id = request.params.id
 
-            if (id != `` || id == undefined) {
+            if (id != `` && id != undefined) {
                 dadosBody.id = id
                 const dadosAluno = await atualizarAluno(dadosBody)
                 statusCode = dadosAluno.status
@@ -114,6 +114,25 @@ app.put(`/aluno/:id`, cors(), jsonParser, async (request, response, next) => {
     } else {
         statusCode = 400
         message = MESSAGE_ERROR.CONTENT_TYPE
+    }
+
+    return response.status(statusCode).json(message)
+})
+
+// ENDPOINT PARA EXCLUIR UM ALUNO EXISTENTE
+app.delete(`/aluno/:id`, cors(), jsonParser, async (request, response, next) => {
+    let statusCode
+    let message
+    let id = request.params.id
+
+    if (id != `` && id != undefined) {
+        const dadosAluno = await excluirAluno(id)
+
+        statusCode = dadosAluno.status
+        message = dadosAluno.message
+    } else {
+        statusCode = 400
+        message = MESSAGE_ERROR.REQUIRED_ID
     }
 
     return response.status(statusCode).json(message)

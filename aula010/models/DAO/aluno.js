@@ -49,7 +49,19 @@ const updateAluno = async (aluno) => {
 
 // Função para excluir um registro no BD
 const deleteAluno = async (id) => {
+    try {
+        let sql = `delete from tbl_aluno where id = ${id}`
+        
+        const result = await prisma.$executeRawUnsafe(sql)
 
+        if (result) {
+            return true
+        } else {
+            return false
+        }
+    } catch (err) {
+        return false
+    }
 }
 
 // Função para retornar todos os registros do BD
