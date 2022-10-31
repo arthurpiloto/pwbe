@@ -20,6 +20,7 @@ const bodyParser = require(`body-parser`)
 const app = express()
 
 const { novoAluno, atualizarAluno, excluirAluno, listarAlunos, listarAlunoPorId } = require(`./controller/controller-aluno.js`)
+const { novoCurso, atualizarCurso, excluirCurso, listarCursos, listarCursoPorId } = require(`./controller/controller-curso.js`)
 const { MESSAGE_ERROR, MESSAGE_SUCCESS } = require(`./modules/config.js`)
 
 app.use((request, response, next) => {
@@ -37,7 +38,7 @@ ROTAS PARA CRUD DE ALUNOS
 DATA: 10/10/2022
 ***************************************/
 // ENDPOINT PARA LISTAR TODOS OS ALUNOS
-app.get(`/v1/alunos`, cors(), async (request, response, next) => {
+app.get(`/v1/alunos`, cors(), async (request, response) => {
     // RETORNA TODOS OS ALUNOS EXISTENTES NO BD
     const dadosAlunos = await listarAlunos()
 
@@ -51,7 +52,7 @@ app.get(`/v1/alunos`, cors(), async (request, response, next) => {
 })
 
 // ENDPOINT PARA INSERIR UM NOVO ALUNO
-app.post(`/v1/aluno`, cors(), jsonParser, async (request, response, next) => {
+app.post(`/v1/aluno`, cors(), jsonParser, async (request, response) => {
     let statusCode
     let message
     let headerContentType
@@ -83,7 +84,7 @@ app.post(`/v1/aluno`, cors(), jsonParser, async (request, response, next) => {
 })
 
 // ENDPOINT PARA ATUALIZAR UM REGISTRO DE ALUNO
-app.put(`/v1/aluno/:id`, cors(), jsonParser, async (request, response, next) => {
+app.put(`/v1/aluno/:id`, cors(), jsonParser, async (request, response) => {
     let statusCode
     let message
     let headerContentType
@@ -117,7 +118,7 @@ app.put(`/v1/aluno/:id`, cors(), jsonParser, async (request, response, next) => 
 })
 
 // ENDPOINT PARA EXCLUIR UM ALUNO EXISTENTE
-app.delete(`/v1/aluno/:id`, cors(), jsonParser, async (request, response, next) => {
+app.delete(`/v1/aluno/:id`, cors(), jsonParser, async (request, response) => {
     let statusCode
     let message
     let id = request.params.id
@@ -136,7 +137,7 @@ app.delete(`/v1/aluno/:id`, cors(), jsonParser, async (request, response, next) 
 })
 
 // ENDPOINT PARA BUSCAR UM ALUNO PELO ID
-app.get(`/v1/aluno/:id`, cors(), async (request, response, next) => {
+app.get(`/v1/aluno/:id`, cors(), async (request, response) => {
     let statusCode
     let message
     let id = request.params.id
@@ -156,6 +157,126 @@ app.get(`/v1/aluno/:id`, cors(), async (request, response, next) => {
         message = MESSAGE_ERROR.REQUIRED_ID
     }
     
+    return response.status(statusCode).json(message)
+})
+
+/***************************************
+ROTAS PARA CRUD DE CURSO
+DATA: 31/10/2022
+***************************************/
+// ENDPOINT PARA LISTAR TODOS OS CURSOS
+app.get(`/v1/cursos`, cors(), async (request, response) => {
+    let statusCode
+    let message
+    const dadosCursos = await listarCursos()
+
+    if (dadosCursos) {
+        statusCode = 200
+        message = dadosCursos
+    } else {
+        statusCode = 404
+        message = MESSAGE_ERROR.NOT_FOUND_DB
+    }
+    return response.status(statusCode).json(message)
+})
+
+// ENDPOINT PARA INSERIR UM NOVO CURSO
+app.post(`/v1/curso`, cors(), jsonParser, async (request, response) => {
+    let statusCode
+    let message
+    let headerContentType
+
+    headerContentType = request.headers[`content-type`]
+
+    if (headerContentType == `application/json`) {
+        let dadosBody = request.body
+
+        if (JSON.stringify(dadosBody) != `{}`) {
+            const dadosCurso = await novoCurso(dadosBody)
+            statusCode = dadosCurso.status
+            message = dadosCurso.message
+        } else {
+            statusCode = 400
+            message = MESSAGE_ERROR.EMPTY_BODY
+        }
+    } else {
+        statusCode = 415
+        message = MESSAGE_ERROR.CONTENT_TYPE
+    }
+    return response.status(statusCode).json(message)
+})
+
+// ENDPOINT PARA ATUALIZAR UM REGISTRO DE CURSO
+app.put(`/v1/curso/:id`, cors(), jsonParser, async (request, response) => {
+    let statusCode
+    let message
+    let headerContentType
+
+    headerContentType = request.headers[`content-type`]
+    if (headerContentType == `application/json`) {
+        let dadosBody = request.body
+
+        if (JSON.stringify(dadosBody) != `{}`) {
+            let id = request.params.id
+
+            if (id != `` && id != undefined) {
+                dadosBody.id = id
+                const dadosCurso = await atualizarCurso(dadosBody)
+                statusCode = dadosCurso.status
+                message = dadosCurso.message
+            } else {
+                statusCode = 400
+                message = MESSAGE_ERROR.REQUIRED_ID
+            }
+        } else {
+            statusCode = 400
+            message = MESSAGE_ERROR.EMPTY_BODY
+        }
+    } else {
+        statusCode = 400
+        message = MESSAGE_ERROR.CONTENT_TYPE
+    }
+    return response.status(statusCode).json(message)
+})
+
+// ENDPOINT PARA EXCLUIR UM CURSO EXISTENTE
+app.delete(`/v1/curso/:id`, cors(), jsonParser, async (request, response) => {
+    let statusCode
+    let message
+    let id = request.params.id
+
+    if (id != `` && id != undefined) {
+        const dadosCurso = await excluirCurso(id)
+
+        statusCode = dadosCurso.status
+        message = dadosCurso.message
+    } else {
+        statusCode = 400
+        message = MESSAGE_ERROR.REQUIRED_ID
+    }
+    return response.status(statusCode).json(message)
+})
+
+// ENDPOINT PARA BUSCAR UM CURSO PELO ID
+app.get(`/v1/curso/:id`, cors(), async (request, response) => {
+    let statusCode
+    let message
+    let id = request.params.id
+
+    if (id != `` && id != undefined){
+        const dadosCurso = await listarCursoPorId(id)
+
+        if (dadosCurso) {
+            statusCode = 200
+            message = dadosCurso
+        } else {
+            statusCode = 404
+            message = MESSAGE_ERROR.NOT_FOUND_DB
+        }
+    } else {
+        statusCode = 400
+        message = MESSAGE_ERROR.REQUIRED_ID
+    }
     return response.status(statusCode).json(message)
 })
 
