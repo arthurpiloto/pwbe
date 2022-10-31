@@ -37,7 +37,7 @@ ROTAS PARA CRUD DE ALUNOS
 DATA: 10/10/2022
 ***************************************/
 // ENDPOINT PARA LISTAR TODOS OS ALUNOS
-app.get(`/alunos`, cors(), async (request, response, next) => {
+app.get(`/v1/alunos`, cors(), async (request, response, next) => {
     // RETORNA TODOS OS ALUNOS EXISTENTES NO BD
     const dadosAlunos = await listarAlunos()
 
@@ -51,7 +51,7 @@ app.get(`/alunos`, cors(), async (request, response, next) => {
 })
 
 // ENDPOINT PARA INSERIR UM NOVO ALUNO
-app.post(`/aluno`, cors(), jsonParser, async (request, response, next) => {
+app.post(`/v1/aluno`, cors(), jsonParser, async (request, response, next) => {
     let statusCode
     let message
     let headerContentType
@@ -83,7 +83,7 @@ app.post(`/aluno`, cors(), jsonParser, async (request, response, next) => {
 })
 
 // ENDPOINT PARA ATUALIZAR UM REGISTRO DE ALUNO
-app.put(`/aluno/:id`, cors(), jsonParser, async (request, response, next) => {
+app.put(`/v1/aluno/:id`, cors(), jsonParser, async (request, response, next) => {
     let statusCode
     let message
     let headerContentType
@@ -117,7 +117,7 @@ app.put(`/aluno/:id`, cors(), jsonParser, async (request, response, next) => {
 })
 
 // ENDPOINT PARA EXCLUIR UM ALUNO EXISTENTE
-app.delete(`/aluno/:id`, cors(), jsonParser, async (request, response, next) => {
+app.delete(`/v1/aluno/:id`, cors(), jsonParser, async (request, response, next) => {
     let statusCode
     let message
     let id = request.params.id
@@ -136,7 +136,7 @@ app.delete(`/aluno/:id`, cors(), jsonParser, async (request, response, next) => 
 })
 
 // ENDPOINT PARA BUSCAR UM ALUNO PELO ID
-app.get(`/aluno/:id`, cors(), async (request, response, next) => {
+app.get(`/v1/aluno/:id`, cors(), async (request, response, next) => {
     let statusCode
     let message
     let id = request.params.id
