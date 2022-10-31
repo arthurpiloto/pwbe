@@ -79,7 +79,7 @@ const selectAllAlunos = async () => {
     }
 }
 
-// FUNÇÃO PARA RETORNAR APENAS O 
+// FUNÇÃO PARA RETORNAR APENAS UM ALUNO PELO ID
 const selectAlunoById = async (id) => {
     try {
         let sql = `select cast(id as float) as id, nome, foto, sexo, rg, cpf, email, telefone, celular, data_nascimento from tbl_aluno where id = ${id};`
@@ -95,10 +95,28 @@ const selectAlunoById = async (id) => {
     }
 }
 
+// FUNÇÃO PARA RETORNAR O ÚLTIMO ID GERADO NO BD
+const selectLastId = async () => {
+    try {
+        // SCRIPT PARA BUSCAR O ÚLTIMO ID GERADO NO BD
+        let sql = `select cast(id as float) as id from tbl_aluno order by id desc limit 1;`
+
+        const result = await prisma.$queryRawUnsafe(sql)
+        if (result.length > 0) {
+            return result
+        } else {
+            return false
+        }
+    } catch (err) {
+        return false
+    }
+}
+
 module.exports = {
     insertAluno,
     updateAluno,
     deleteAluno,
     selectAllAlunos,
-    selectAlunoById
+    selectAlunoById,
+    selectLastId
 }

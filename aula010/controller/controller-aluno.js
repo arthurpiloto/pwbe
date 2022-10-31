@@ -6,7 +6,7 @@ DATA DE CRIAÇÃO: 06/10/2022
 VERSÃO: 1.0
 ************************************************************************/
 
-const { insertAluno, updateAluno, deleteAluno, selectAllAlunos, selectAlunoById } = require(`../models/DAO/aluno.js`)
+const { insertAluno, updateAluno, deleteAluno, selectAllAlunos, selectAlunoById, selectLastId } = require(`../models/DAO/aluno.js`)
 const { MESSAGE_ERROR, MESSAGE_SUCCESS } = require(`../modules/config.js`)
 
 // Função para gerar um registro
@@ -19,9 +19,18 @@ const novoAluno = async (aluno) => {
         return {status: 400, message: MESSAGE_ERROR.INVALID_EMAIL}
     } else {
         // CHAMA A FUNÇÃO PARA INSERIR UM NOVO ALUNO
-        const result = await insertAluno(aluno)
+        const resultNovoAluno = await insertAluno(aluno)
 
-        if (result) {
+        if (resultNovoAluno) {
+            // CHAMA A FUNÇÃO QUE VERIFICA QUAL FOI O ID GERADO PARA O NOVO ALUNO
+            let resultIdNovoAluno = await selectLastId()
+
+            if (resultIdNovoAluno > 0) {
+
+            }
+        }
+
+        if (resultNovoAluno) {
             return {status: 201, message: MESSAGE_SUCCESS.INSERT_ITEM}
         } else {
             return {status: 500, message: MESSAGE_ERROR.INTERNAL_ERROR_DB}
@@ -66,8 +75,6 @@ const excluirAluno = async (id) => {
 
 // Função para retornar todos os registros
 const listarAlunos = async () => {
-    const { selectAllAlunos } = require(`../models/DAO/aluno.js`)
-
     const dadosAlunos = await selectAllAlunos()
     
     let dadosAlunosJSON = {}
