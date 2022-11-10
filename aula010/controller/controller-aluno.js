@@ -108,9 +108,20 @@ const listarAlunos = async () => {
         // dadosAlunos.forEach(element => {
         //     element.id = Number(element.id)
         // })
-
         // CRIAMOS UMA CHAVE ALUNOS NO JSON PARA RETORNAR O ARRAY DE ALUNOS
-        dadosAlunosJSON.alunos = dadosAlunos
+
+        const alunosCursoArray = dadosAlunos.map(async element => {
+            // BUSCA OS DADOS REFERENTES AO CURSO DO ALUNO
+            const dadosAlunoCurso = await selectAlunoCurso(element.id)
+
+            if (dadosAlunoCurso) {
+                // ACRESCENTA UMA CHAVE CURSO E COLOCA OS DADOS DO CURSO DO ALUNO
+                element.curso = dadosAlunoCurso
+            }
+            return element
+        })
+
+        dadosAlunosJSON.alunos = await Promise.all(alunosCursoArray)
         return dadosAlunosJSON
     }
     return false
