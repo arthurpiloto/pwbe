@@ -7,6 +7,7 @@ VERSÃO: 1.0
 ************************************************************************/
 
 const { insertAluno, updateAluno, deleteAluno, selectAllAlunos, selectAlunoById, selectLastId } = require(`../models/DAO/aluno.js`)
+const { insertAlunoCurso, selectAlunoCurso } = require(`../models/DAO/aluno_curso.js`)
 const { MESSAGE_ERROR, MESSAGE_SUCCESS } = require(`../modules/config.js`)
 
 // Função para gerar um registro
@@ -19,19 +20,43 @@ const novoAluno = async (aluno) => {
         return {status: 400, message: MESSAGE_ERROR.INVALID_EMAIL}
     } else {
         // CHAMA A FUNÇÃO PARA INSERIR UM NOVO ALUNO
-        const resultNovoAluno = await insertAluno(aluno)
+        const result = await insertAluno(aluno)
 
-        if (resultNovoAluno) {
+        if (result) {
             // CHAMA A FUNÇÃO QUE VERIFICA QUAL FOI O ID GERADO PARA O NOVO ALUNO
-            let resultIdNovoAluno = await selectLastId()
+            let resultId = await selectLastId()
 
-            if (resultIdNovoAluno > 0) {
+            if(resultId > 0) {
+                // OBJETO JSON PARA ALUNO_CURSO
+                let alunoCurso = {}
 
+                // RETORNA O ANO CORRENTE
+                let anoMatricula = new Date().getFullYear()
+
+                // GERA A MATRÍCULA DO ALUNO (ID_ALUNO + ID_CURSO + ANO CORRENTE)
+                let numeroMatricula = `${resultId}${aluno.curso[0].id_curso}${anoMatricula}`
+
+                // INSERINDO OS VALORES E AS CHAVES NO JSON
+                alunoCurso.id_aluno = resultId
+                alunoCurso.id_curso = aluno.curso[0].id_curso
+                alunoCurso.matricula = numeroMatricula
+                alunoCurso.status_aluno = 'Cursando'
+
+                // CHAMA A FUNÇÃO PARA INSERIR NA TBL_ALUNO_CURSO
+                const resultNovoAlunoCurso = await insertAlunoCurso(alunoCurso)
+
+                if(resultNovoAlunoCurso) {
+                    return {status:201, message: MESSAGE_SUCCESS.INSERT_ITEM}
+                } else {
+                    // CASO ACONTEÇA UM ERRO NESTE PROCESSO, OBRIGATORIAMENTE DEVERÁ SER EXCLUÍDO DO BD ESSE REGISTRO, JÁ QUE, NO CASO DE UM ERRO, ELE SERIA INSERIDO EM UMA TABELA MAS EM OUTRA NÃO, SENDO UM PROCESSAMENTO FEITO PELA METADE
+                    await deleteAluno(resultId)
+                    return {status: 500, message: MESSAGE_ERROR.INTERNAL_ERROR_DB}
+                }
+
+            } else {
+                await deleteAluno(resultId)
+                return {status: 500, message: MESSAGE_ERROR.INTERNAL_ERROR_DB}
             }
-        }
-
-        if (resultNovoAluno) {
-            return {status: 201, message: MESSAGE_SUCCESS.INSERT_ITEM}
         } else {
             return {status: 500, message: MESSAGE_ERROR.INTERNAL_ERROR_DB}
         }
@@ -96,14 +121,25 @@ const listarAlunoPorId = async (id) => {
     if (id == `` || id == undefined) {
         return {status: 400, message: MESSAGE_ERROR.REQUIRED_ID}
     } else {
-        const dadosAluno = await selectAlunoById(id)
-        dadosAlunoJSON = {}
+        const result = await selectAlunoById(id)
+        let resultJSON = {}
 
-        if (dadosAluno) {
-            dadosAlunoJSON.aluno = dadosAluno
-            return dadosAlunoJSON
+        if (result) {
+            const resultCurso = await selectAlunoCurso(id)
+
+            if (resultCurso) {
+                // CHAVE DO JSON QUE RETORNA O ARRAY DE ALUNO
+                resultJSON.aluno = result
+
+                // ADICIONA A CHAVE CURSO DENTRO DO OBJETO DOS DADOS DO ALUNO E INSERE OS DADOS DO CURSO REFERENTE AO ALUNO
+                result[0].curso = resultCurso
+
+                return resultJSON
+            } else {
+                resultJSON.aluno = result
+                return resultJSON
+            }
         }
-        return false
     }
 }
 

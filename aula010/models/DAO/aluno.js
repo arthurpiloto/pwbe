@@ -103,7 +103,7 @@ const selectLastId = async () => {
 
         const result = await prisma.$queryRawUnsafe(sql)
         if (result.length > 0) {
-            return result
+            return result[0].id
         } else {
             return false
         }
